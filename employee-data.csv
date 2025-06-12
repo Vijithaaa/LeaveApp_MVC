@@ -1,0 +1,7 @@
+employee_id,employee_name,emp_email_id,gender,date_of_joining,status,role_id,employee_image
+4,banu,banu@gmail.com,female,2025-04-12,active,3,assets/images/employees/emp_1.jpeg
+7,vijitha,vijitha@gmail.com,female,2025-03-10,active,4,assets/images/employees/emp_3.jpeg
+8,vasanth,vasanth@gmail.com,male,2025-03-10,active,1,assets/images/employees/emp_2.jpeg
+9,meera,meera@gmail.com,female,2025-06-12,active,2,assets/images/employees/emp_1.jpeg
+10,ken,ken@gmail.com,male,2025-06-12,active,1,assets/images/employees/emp_2.jpeg
+11,elakya,elakya@gmail.com,female,2025-01-18,active,3,assets/images/employees/emp_3.jpeg

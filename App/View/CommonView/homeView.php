@@ -42,6 +42,7 @@
             color: #041a3c;
         }
     </style>
+    
 </head>
 
 <body>
@@ -58,12 +59,12 @@
             <div class="d-flex">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="auth/login.php?type=employee">
+                        <a class="nav-link" href="index.php?controller=auth&amp;action=form&amp;type=employee">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="auth/login.php?type=admin">
+                        <a class="nav-link" href="index.php?controller=auth&amp;action=form&amp;type=admin">
                             <i class="bi bi-person-circle"></i> Admin
                         </a>
                     </li>

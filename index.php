@@ -19,6 +19,7 @@ if (file_exists(__DIR__ .'/App/Controller/' . $controller. 'Controller.php')) {
             if (is_array($response) && isset($response['path'])) {
 
                 $data = $response['data'] ?? null;
+                // echo "<pre>"; print_r($data); echo "</pre>";
                 require_once __DIR__ . '/App/' . $response['path'];
 
             } else {
