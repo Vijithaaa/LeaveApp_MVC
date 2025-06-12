@@ -1,0 +1,50 @@
+/* Side margins for table container */
+.container-approve {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+/* Status color coding */
+.status-approved {
+  color: green;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: red;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+/* Action buttons styled as colored text */
+.text-action {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Specific styles */
+.text-action.approve {
+  color: green;
+}
+
+.text-action.reject {
+  color: red;
+}
+
+/* Hover effects */
+.text-action.approve:hover,
+.text-action.reject:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+}

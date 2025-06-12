@@ -1,0 +1,107 @@
+.blank {
+    height: 4vh !important;
+    /* background-color: #f4f8fb !important; */
+}
+
+/* .container-image{
+height: 96vh;
+background-image: url('../images/form-3.jpg') ;
+background-repeat: no-repeat;
+background-size:50%;
+background-position: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+} */
+
+.container-image {
+    display: flex;
+    height: 90vh;
+}
+
+.image-side {
+    flex: 1;
+    background-image: url('../images/form-3.jpg') ;
+    background-size: cover;
+    background-position: center;
+}
+
+.leaveform {
+    flex: 1;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: auto;
+    margin-right: 7rem;
+   
+    max-width: 500px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* .leaveform {
+    background-color: #f8f9fa;
+    width: 500px;
+    backdrop-filter: blur(10px);
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 40px auto;
+    box-shadow: 1px 1px 1px 1px;
+} */
+
+.form-detail {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-detail label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #022f53;
+    font-weight: 700;
+}
+
+.form-detail input[type="date"],
+.form-detail select {
+    padding: 0.5rem;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #022f53;
+
+
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+
+.my-custom-button {
+    background-color: #013872;
+    color: #FFFFFF;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+
+.my-custom-button:hover {
+    background-color: #0056b3;
+    /* transform: translateY(-2px); */
+}

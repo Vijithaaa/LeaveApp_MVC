@@ -1,0 +1,87 @@
+
+.leave-history-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.text-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.text-button.edit {
+  color: #007bff; 
+}
+
+.text-button.delete {
+  color: #dc3545;
+}
+
+.text-button.edit:hover,
+.text-button.delete:hover {
+  transform: scale(1.05);
+  text-decoration:underline;
+}
+
+
+
+.leave-history-table thead th {
+  background-color: #007BFF !important;
+  color: #FFF !important;
+  border: none;
+}
+
+
+.leave-history-table tbody tr:nth-child(odd) {
+  background-color: #F9F9F9;
+}
+.leave-history-table tbody tr:hover {
+  background-color: #EEF5FF;
+}
+
+.leave-history-table td {
+  vertical-align: middle;
+  padding: 0.65rem 1rem;
+  border-top: 1px solid #E9ECEF;
+}
+
+
+.leave-history-table .badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+
+.status-pending {
+  background-color: #FFC107;
+  color: #212529;
+}
+.status-approved {
+  background-color: #28A745;
+  color: #FFF;
+}
+.status-rejected {
+  background-color: #DC3545;
+  color: #FFF;
+}
+
+
+.leave-history-table .btn {
+  margin: 0 0.15rem;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.leave-history-table thead th.text-center,
+.leave-history-table td.text-center {
+  text-align: center;
+}
+

@@ -1,0 +1,109 @@
+:root {
+    --bg-color: #f4f8fb;
+    --btn-color: #212156;
+    --title: #123458;
+
+}
+
+
+
+body {
+    position: relative;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    background-image: url('../images/illu-2.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    opacity: 0.3;
+    z-index: -1;
+}
+
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loginpage-container {
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(18, 52, 88, 0.5);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(7px);
+
+}
+
+
+
+.login-title {
+
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--title);
+    font-weight: 700;
+
+}
+
+.loginform label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--title);
+    font-weight: bold;
+    /* letter-spacing: 1px; */
+}
+
+.loginform input[type="text"],
+.loginform input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--title);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+
+}
+
+.loginform input[type="text"]:focus,
+.loginform input[type="password"]:focus {
+    border-color: var(--btn-color);
+    outline: none;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.my-custom-button {
+    padding: 10px 25px;
+    background-color: #005ec3;
+    color:#fff;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    /* transition: background-color 0.5s; */
+}
+
+.my-custom-button:hover {
+    background-color: #003d7e;
+}
+

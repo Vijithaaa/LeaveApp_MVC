@@ -1,0 +1,38 @@
+.leave-panels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.leave-panel {
+    background-color: #e9f3f9;
+    border-left: 5px solid #011d48;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.leave-panel:hover {
+    transform: translateY(-5px);
+}
+
+.leave-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #011d48;
+    margin-bottom: 10px;
+}
+
+.leave-taken {
+    font-size: 1rem;
+    color: #333;
+}
+
+h3 span {
+    color: #011d48;
+    font-weight: bold;
+}
