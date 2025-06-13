@@ -19,7 +19,7 @@ function displayAlertMessages()
     }
 }
 
-//  displayAlertMessages(); 
+displayAlertMessages();
 
 
 // Function to format date as "22nd May 2025"
@@ -37,12 +37,13 @@ function calculateLeaveDays($startDate, $endDate)
     $end = new DateTime($endDate);
     $interval = $start->diff($end);
     return $interval->days + 1; // +1 to include both start and end days
-}
+} // 
 
 //fuction for employeeProfile
-function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/leaveTracking_oop/asset/images/employees/') {
+function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/leaveTracking_oop/asset/images/employees/')
+{
     $html = '<div class="employee-profile">';
-    
+
     // Handle image display
     if (!empty($empImagePath)) {
         $imageFile = basename($empImagePath);
@@ -51,8 +52,6 @@ function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/lea
     }
 
     $html .= '</div>';
-    
+
     return $html;
 }
-
-?>

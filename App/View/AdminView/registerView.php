@@ -1,5 +1,5 @@
 <?php
-include './App/Includes/helperfunction.php';
+// include './App/Includes/helperfunction.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,8 @@ include './App/Includes/helperfunction.php';
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/register.css">
+    <link rel="stylesheet" href="assets/css/employee-navbar.css">
+
 
 
     <title>Register Employee Details</title>
@@ -82,5 +84,12 @@ include './App/Includes/helperfunction.php';
         </div>
 
 </body>
+<footer class="app-footer">
+  <div class="footer-content">
+    <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
+    <!-- <p>A simple footer for your application</p> -->
+     
+  </div>
+</footer>
 
 </html>

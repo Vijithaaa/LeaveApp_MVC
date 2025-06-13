@@ -59,8 +59,11 @@ class authController
                 $userData = $this->model->adminAuth($username, $password);
 
                 if ($userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username && $userData['msg']['pass'] == $password) {
-                    session_start();
-                    $_SESSION['admin_logged_in'] = true;
+                    // session_start();
+                    // $_SESSION['admin_logged_in'] = true;
+                    $_SESSION['ADMIN'] = [
+                        'admin_logged_in' => true
+                    ];
 
                     $arr = ['path' => 'View/CommonView/adminHomeView.php'];
                     return $arr;
@@ -76,18 +79,25 @@ class authController
                 // print_r($userData);
 
                 if ($userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username && $userData['msg']['employee_id'] == $password) {
-                    session_start();
-                    $_SESSION['empId'] = $userData['msg']['employee_id'];
-                    $_SESSION['empName'] = ucfirst($userData['msg']['employee_name']);
-                    $_SESSION['role_id'] = $userData['msg']['role_id'];
-                    $_SESSION['emp_logged_in'] = true;
-                    // Store the photo path if it exists
-                    if (!empty($userData['msg']['employee_image'])) {
-                        $_SESSION['empImage'] = $userData['msg']['employee_image'];
-                    }
+                    // session_start();
+                    $_SESSION['EMP'] = [
+                        'empId' => $userData['msg']['employee_id'],
+                        'empName' => ucfirst($userData['msg']['employee_name']),
+                        'role_id' => $userData['msg']['role_id'],
+                        'empImage' => $userData['msg']['employee_image'],
+                        'emp_logged_in' => true
+                    ];
+                    session_regenerate_id(true); // Destroys old session
 
-                    $arr = ['path' => 'View/EmployeeView/leavetracking.php'];
-                    return $arr;
+                    // $arr = [
+                    //     'path' => 'View/EmployeeView/leavetracking.php',
+                    // ];
+
+                    include 'employeeController.php';
+                    $obj = new employeeController();
+                    return $obj->leavetrack();
+
+                    // return $arr;
                 } else {
 
                     $errorMsg = "Invalid employee credentials";
@@ -100,7 +110,7 @@ class authController
 
     public function logout()
     {
-        session_start();
+        // session_start();
         session_unset();
         session_destroy();
         // header("Location: index.php");
@@ -108,6 +118,7 @@ class authController
         $arr = ['path' => 'View/CommonView/homeView.php'];
         return $arr;
     }
+
 
 
     public function adminpage()

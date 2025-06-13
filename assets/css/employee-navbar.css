@@ -10,13 +10,6 @@
     padding: 0px;
 }
 
-/* .custom-navbar div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-} */
-
 .navbar {
     background-color: var(--bg-color);
     opacity: 0.9;
@@ -49,3 +42,22 @@
     /* gap: 20px; */
     /* margin-bottom: 20px; */
 }
+
+
+
+/* footer */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  background: #c4d3ee;
+  border-top: 1px solid #ddd;
+}
+
+/* Add padding to main content to prevent overlap */
+/* main {
+  padding-bottom: 60px; 
+} */

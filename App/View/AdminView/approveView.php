@@ -1,8 +1,3 @@
-<?php
-include './App/Includes/helperfunction.php';
-//  displayAlertMessages() 
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +11,10 @@ include './App/Includes/helperfunction.php';
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../asset/css/style.css">
-    <link rel="stylesheet" href="../../asset/css/approver.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/approver.css">
+    <link rel="stylesheet" href="assets/css/employee-navbar.css">
+
 
 
     <title>Leave History</title>
@@ -34,32 +31,33 @@ include './App/Includes/helperfunction.php';
     <nav class="navbar custom-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="../../asset/images/infiniti_logo.png" alt="Logo" style="width:80px;" class="rounded-pill me-3">
+                <img src="assets/images/common/infiniti_logo.png" alt="Logo" style="width:80px;" class="rounded-pill me-3">
             </a>
             <span class="h3">Leave Approval</span>
             <div class="d-flex">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="../auth/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                        <a class="nav-link text-danger" href="index.php?controller=auth&action=auth"><i class="bi bi-box-arrow-right"></i> Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="blank"></div>
 
+    <div class="blank"></div>
 
     <div class="container-approve">
         <div class="container py-4">
-            <?= displayAlertMessages() ?>
 
-            <?php if (!empty($application)): ?>
+                <?= displayAlertMessages() ?>
+
+            <?php if (!empty($data)): ?>
                 <table class="table table">
                     <thead class="table-info">
                         <tr>
                             <!-- <th>Application ID</th> -->
                             <th>Employee Name</th>
-                            <th>Leave Type ID</th>
+                            <th>Leave Type </th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Days</th>
@@ -71,16 +69,15 @@ include './App/Includes/helperfunction.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($application as $app): ?>
+                        <?php foreach ($data as $app): ?>
                             <tr>
 
-                                <td><?= htmlspecialchars(ucfirst($app['employee_id'])) ?></td>
+                                <td><?= htmlspecialchars(ucfirst($app['employee_id']['employee_name'])) ?></td>
 
-                                <td><?= htmlspecialchars($app['leave_type_id']) ?></td>
+                                <td><?= htmlspecialchars (ucfirst(str_replace('_',' ',$app['leave_type_id']))) ?></td>
                                 <td><?= htmlspecialchars(formatDate($app['leave_start_date'])) ?></td>
                                 <td><?= htmlspecialchars(formatDate($app['leave_end_date'])) ?></td>
                                 <td class="days"><?= $app['days'] ?> day<?= $app['days'] != 1 ? 's' : '' ?></td>
-
 
                                 <td><?= htmlspecialchars($app['reqested_date']) ?></td>
 
@@ -123,5 +120,11 @@ include './App/Includes/helperfunction.php';
 
         </div>
 </body>
-
+<footer class="app-footer">
+  <div class="footer-content">
+    <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
+    <!-- <p>A simple footer for your application</p> -->
+     
+  </div>
+</footer>
 </html>

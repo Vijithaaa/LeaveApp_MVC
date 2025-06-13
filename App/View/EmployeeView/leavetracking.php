@@ -1,4 +1,5 @@
 <?php
+// session_start();
 include './App/View/CommonView/navbar.php';
 ?>
 
@@ -16,8 +17,10 @@ include './App/View/CommonView/navbar.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="assets/css/leavetrack.css">
     <link rel="stylesheet" href="assets/css/employee-navbar.css">
+    <link rel="stylesheet" href="assets/css/employee-navbar.css">
 
-       <style>
+
+    <style>
         .blank {
             background-color: transparent;
             height: 15vh;
@@ -29,20 +32,27 @@ include './App/View/CommonView/navbar.php';
     <div class="blank"></div>
     <div class="container">
 
-        <h3><span>Total Leave:</span> <?= $userData['total_leave'] ?></h3>
+        <h3><span>Total Leave:</span> <?= isset($data['userData']['total_leave']) ? htmlspecialchars($data['userData']['total_leave']) : '' ?></h3>
 
         <div class="leave-panels">
-            
-            <?php foreach ($userData['fetchLeaveTaken'] as $leave): ?>
-                <div class="leave-panel">
-                    <div class="leave-name"><?= htmlspecialchars(ucwords(str_replace('_',' ',$leave['leave_type']))) ?></div>
-                    <div class="leave-taken">Taken: <?= $leave['leave_taken'] ?> days</div>
-                </div>
-            <?php endforeach; ?>
+
+            <?php if (!empty($data['userData']['fetchLeaveTaken'])): ?>
+                <?php foreach ($data['userData']['fetchLeaveTaken'] as $leave): ?>
+                    <div class="leave-panel">
+                        <div class="leave-name"><?= htmlspecialchars(ucwords(str_replace('_', ' ', $leave['leave_type']))) ?></div>
+                        <div class="leave-taken">Taken: <?= $leave['leave_taken'] ?> days</div>
+                    </div>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <?= "<tr><td colspan='X'>No leave records found.</td></tr>"  ?>
+            <?php endif; ?>
         </div>
 
     </div>
 
+
+   
+
 </body>
 
-</html>
+</html> 

@@ -1,5 +1,5 @@
 <?php
-include './App/Includes/helperfunction.php';
+// include './App/Includes/helperfunction.php';
 ?>
 
 <!DOCTYPE html>

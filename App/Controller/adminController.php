@@ -1,15 +1,21 @@
 <?php
 require_once __DIR__ . '/../Model/adminModel.php';
 
+require_once __DIR__ . '/employeeController.php';
 
-// require_once __DIR__.'/../View/AdminView/registerView.php';
+
+
+
+// require_once __DIR__.'/../View/AdminView/approveView.php';
 
 class adminController
 {
     public $model;
+    public $emp;
     public function __construct()
     {
         $this->model = new adminModel();
+        // $this->emp = new employeeModel();
     }
 
 
@@ -18,6 +24,7 @@ class adminController
 
     public function form()
     {
+
         $SelectRoleName = $this->model->SelectRoleName();
 
         $role = [];
@@ -86,9 +93,6 @@ class adminController
 
 
 
-
-
-
             $insert = $this->model->InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath);
             // echo "<pre>"; print_r($insert); echo "</pre>";
 
@@ -118,7 +122,7 @@ class adminController
                     fclose($file);
                 }
 
-                $arr = ['data'=>$insert,'path'=>'View/AdminView/registerView.php'];
+                $arr = ['data' => $insert, 'path' => 'View/AdminView/registerView.php'];
                 return $arr;
             }  //insert status = success
 
@@ -137,11 +141,110 @@ class adminController
 
 
 
+    //=====================================================================================================================
+    //approve
+
+    public function approve()
+    {
+
+        // //get the application_id from  form in same page
+        if (isset($_POST['actions']) && isset($_POST['application_id'])) {
+            $application_id = ($_POST['application_id']);  //hidden input
+            $status = ($_POST['actions']); //hidden input
+
+            $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id);
 
 
-    // public function approve(){
+            if ($updateLeaveApp) {
+                $successMsg = "status updated";
+                setcookie('successMsg', $successMsg, time() + 2);
+                header("Location: index.php?controller=admin&action=approve");
+            }
 
-    // }
 
 
+            //     //select leave application if status == 'approved'  for updating the leave_tracking page to show no of leave count for  particular employeee
+            if ($status == 'approved') {
+
+                $Selecting_appIds = $this->model->Selecting_appIds($application_id);
+                $emp_id = $Selecting_appIds['msg']['employee_id'];
+                $leave_id = $Selecting_appIds['msg']['leave_type_id'];
+                $start_date = date_create($Selecting_appIds['msg']['leave_start_date']);
+                $end_date = date_create($Selecting_appIds['msg']['leave_end_date']);
+                $interval = $start_date->diff($end_date);
+                $total_days = $interval->days + 1;
+
+                $Insertdata_to_LeaveTrack = $this->model->Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id);
+
+            } //status == approved
+
+
+        } // if post data
+
+
+
+
+        $application = [];
+        // $SelectAllApplication = leaveapp_crul_opration([], "SelectAllApplication");
+
+        $SelectAllApplication = $this->model->SelectAllApplication();
+
+        if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
+            $applications = $SelectAllApplication['msg'];
+
+            // $leaveType = new employeeController();
+            // return $leaveType->leavetypesCommon();
+
+
+                 // Get leave types and employee names
+        $leaveTypeData = new employeeController();
+        $leaveType = $leaveTypeData->leavetypesCommon();
+        
+        $leaveIdName = $leaveType['leaveIdName'];
+
+
+            // $leaveType = $types->getAllLeaveTypes();
+            // $leaveIdName = $leaveType['leaveIdName'];
+
+            //employee name
+            $selectEmployeeName = $this->model->selectEmployeeName();
+            $empIdName = [];
+            foreach ($selectEmployeeName['msg'] as $data) {
+                $empIdName[$data['employee_id']] = $data['employee_name'];
+            }
+
+
+            $leaveIdName = [];
+            $EmpIdName = [];
+            foreach ($leaveType['leaveIdName'] as $id => $name) {
+                $leaveIdName[$id] = $name;
+            }
+
+            foreach ($selectEmployeeName['msg'] as $id => $name) {
+                $EmpIdName[$id] = $name;
+            }
+
+            foreach ($applications as $app) {
+                $leaveTypeId = $app['leave_type_id'];
+                $leaveTypeName = $leaveIdName[$leaveTypeId] ?? 'Unknown Leave Type';
+                $EmpId = $app['employee_id'];
+                $EmpName = $EmpIdName[$EmpId] ?? 'Unknown Employee Name';
+
+                $application[] = [
+                    'application_id' => $app['application_id'],
+                    'employee_id' => $EmpName,
+                    'leave_type_id' => $leaveTypeName,
+                    'leave_start_date' => $app['leave_start_date'],
+                    'leave_end_date' => $app['leave_end_date'],
+                    'status' => $app['status'],
+                    'reqested_date' => $app['reqested_date'],
+                    'response_date' => $app['response_date'],
+                    'days' => calculateLeaveDays($app['leave_start_date'], $app['leave_end_date']) // Calculate days here
+
+                ];
+            }
+        }
+        $arr =  ['data' => $application, 'path' => 'View/AdminView/approveView.php'];
+        return $arr;
+    }
 }

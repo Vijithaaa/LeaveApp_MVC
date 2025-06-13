@@ -1,11 +1,12 @@
 <?php
-include './App/Includes/helperfunction.php';
+// include './App/Includes/helperfunction.php';
 
+// session_start();
 
-if (isset($_SESSION['emp_logged_in']) || $_SESSION['emp_logged_in']  == true) {
+if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMP']['emp_logged_in']  == true) {
 
-    $empName = ucfirst($_SESSION['empName']);
-    $empImage = $_SESSION['empImage'];
+    $empName = ucfirst($_SESSION['EMP']['empName']);
+    $empImage = $_SESSION['EMP']['empImage'];
 }
 ?>
 
@@ -16,9 +17,9 @@ if (isset($_SESSION['emp_logged_in']) || $_SESSION['emp_logged_in']  == true) {
       <?= getEmployeeProfileHtml($empImage) ?>
       <a class="navbar-brand text-dark"><h2><?=$empName?></h2></a>
 
-        <?php if (isset($navbarExtraContent)) : ?>
+        <?php if (isset($data['navbar'])) : ?>
             <div class="d-flex align-items-center">
-                <?= $navbarExtraContent ?>
+                <?= $data['navbar'] ?>
             </div>
         <?php endif; ?>
     
@@ -33,7 +34,7 @@ if (isset($_SESSION['emp_logged_in']) || $_SESSION['emp_logged_in']  == true) {
                     <a class="nav-link text-dark" href="index.php?controller=employee&action=leavetrack"><i class="bi bi-activity"></i> Leave Tracking</a>
         </li>
         <li class="nav-item">
-                    <a class="nav-link text-dark" href="index.php?controller=employee&action=leaveform"><i class="bi bi-pencil-square"></i> Leave Application</a>
+                    <a class="nav-link text-dark" href="index.php?controller=employee&action=showleaveform"><i class="bi bi-pencil-square"></i> Leave Application</a>
         </li>
         <li class="nav-item">
                     <a class="nav-link text-dark" href="index.php?controller=employee&action=leavehistory"><i class="bi bi-chat-right-dots-fill"></i> Leave History</a>
@@ -45,3 +46,12 @@ if (isset($_SESSION['emp_logged_in']) || $_SESSION['emp_logged_in']  == true) {
     </div>
   </div>
 </nav>
+
+
+<footer class="app-footer">
+  <div class="footer-content">
+    <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
+    <!-- <p>A simple footer for your application</p> -->
+     
+  </div>
+</footer>

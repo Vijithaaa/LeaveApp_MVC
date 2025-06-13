@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/home-index-page.css">
+    <link rel="stylesheet" href="assets/css/employee-navbar.css">
+
     <title>home</title>
     <style>
         .card {
@@ -169,5 +171,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<footer class="app-footer">
+  <div class="footer-content">
+    <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
+    <!-- <p>A simple footer for your application</p> -->
+     
+  </div>
+</footer>
 
 </html>

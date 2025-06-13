@@ -1,11 +1,16 @@
 <?php
+session_name("user");
+session_start();
+include './App/Includes/helperfunction.php';
 
 
-$controller = $_GET['controller'] ?? 'auth';
-$action = $_GET['action'] ?? 'auth';
+$controller = isset($_GET['controller']) ? ($_GET['controller']) : 'auth';
+$action = isset($_GET['action']) ? ($_GET['action']) : 'auth';
 
-if (file_exists(__DIR__ .'/App/Controller/' . $controller. 'Controller.php')) {
-    require_once __DIR__ . '/App/Controller/' . $controller . 'Controller.php';
+$controllerfile =  __DIR__ . '/App/Controller/' . $controller . 'Controller.php';
+if (file_exists($controllerfile)) {
+
+    require_once $controllerfile;
 
     $controller = $controller . 'Controller';
 
@@ -17,11 +22,11 @@ if (file_exists(__DIR__ .'/App/Controller/' . $controller. 'Controller.php')) {
             $response = call_user_func([new $controller, $action]);
 
             if (is_array($response) && isset($response['path'])) {
-
                 $data = $response['data'] ?? null;
-                // echo "<pre>"; print_r($data); echo "</pre>";
-                require_once __DIR__ . '/App/' . $response['path'];
 
+                // echo "<pre>"; print_r($data); echo "</pre>";
+
+                require_once __DIR__ . '/App/' . $response['path'];
             } else {
                 echo "response not get properly check controller";
             }
