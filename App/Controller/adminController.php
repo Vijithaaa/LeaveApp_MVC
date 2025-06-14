@@ -22,7 +22,7 @@ class adminController
 
     // -----------------------------------------------------------------------------------------------
 
-    public function form()
+    public function form($reqdata='null')
     {
 
         $SelectRoleName = $this->model->SelectRoleName();
@@ -37,7 +37,7 @@ class adminController
 
 
 
-    public function submitform()
+    public function submitform($reqdata='null')
     {
 
 
@@ -46,15 +46,15 @@ class adminController
         $maxFileSize = 2 * 1024 * 1024; // 2MB
 
 
-        if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['register_employee_details'])) {
+        if (isset($reqdata['register_employee_details'])) {
 
             $empName = $empEmail = $empGender = $empDateOfJoin = $empRoleId = $photoPath = '';
             // Get form data directly from $_POST
-            $empName = $_POST['employee_name'];
-            $empEmail = $_POST['emp_email_id'];
-            $empGender = $_POST['gender'];
-            $empDateOfJoin = $_POST['date_of_joining'];
-            $empRoleId = $_POST['role_id'];
+            $empName = $reqdata['employee_name'];
+            $empEmail = $reqdata['emp_email_id'];
+            $empGender = $reqdata['gender'];
+            $empDateOfJoin = $reqdata['date_of_joining'];
+            $empRoleId = $reqdata['role_id'];
 
             // Handle photo upload
             if (!empty($_FILES['employee_photo']['tmp_name'])) {
@@ -144,13 +144,13 @@ class adminController
     //=====================================================================================================================
     //approve
 
-    public function approve()
+    public function approve($reqdata='null')
     {
 
         // //get the application_id from  form in same page
-        if (isset($_POST['actions']) && isset($_POST['application_id'])) {
-            $application_id = ($_POST['application_id']);  //hidden input
-            $status = ($_POST['actions']); //hidden input
+        if (isset($reqdata['actions']) && isset($reqdata['application_id'])) {
+            $application_id = ($reqdata['application_id']);  //hidden input
+            $status = ($reqdata['actions']); //hidden input
 
             $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id);
 
@@ -182,8 +182,6 @@ class adminController
         } // if post data
 
 
-
-
         $application = [];
         // $SelectAllApplication = leaveapp_crul_opration([], "SelectAllApplication");
 
@@ -192,43 +190,25 @@ class adminController
         if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
             $applications = $SelectAllApplication['msg'];
 
-            // $leaveType = new employeeController();
-            // return $leaveType->leavetypesCommon();
-
-
-                 // Get leave types and employee names
+        // Get leave types and employee names
         $leaveTypeData = new employeeController();
         $leaveType = $leaveTypeData->leavetypesCommon();
         
         $leaveIdName = $leaveType['leaveIdName'];
-
-
-            // $leaveType = $types->getAllLeaveTypes();
-            // $leaveIdName = $leaveType['leaveIdName'];
-
+ 
             //employee name
             $selectEmployeeName = $this->model->selectEmployeeName();
             $empIdName = [];
             foreach ($selectEmployeeName['msg'] as $data) {
                 $empIdName[$data['employee_id']] = $data['employee_name'];
             }
-
-
-            $leaveIdName = [];
-            $EmpIdName = [];
-            foreach ($leaveType['leaveIdName'] as $id => $name) {
-                $leaveIdName[$id] = $name;
-            }
-
-            foreach ($selectEmployeeName['msg'] as $id => $name) {
-                $EmpIdName[$id] = $name;
-            }
-
+               
             foreach ($applications as $app) {
                 $leaveTypeId = $app['leave_type_id'];
                 $leaveTypeName = $leaveIdName[$leaveTypeId] ?? 'Unknown Leave Type';
+
                 $EmpId = $app['employee_id'];
-                $EmpName = $EmpIdName[$EmpId] ?? 'Unknown Employee Name';
+                $EmpName = $empIdName[$EmpId] ?? 'Unknown Employee Name';
 
                 $application[] = [
                     'application_id' => $app['application_id'],

@@ -19,15 +19,14 @@ class authController
         return $arr;
     }
 
-    public function form()
+    public function form($reqdata='null')
     {
 
         // Determine login type (admin or employee)
 
-        $login_type = isset($_GET['type']) ? $_GET['type'] : 'employee';
+        $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
 
         $page_title = ucfirst($login_type) . " Login";
-
 
         $arr = [
             'data' => ['login_type' => $login_type, 'page_title' => $page_title],
@@ -36,7 +35,7 @@ class authController
         return $arr;
     }
 
-    public function  submitform()
+    public function  submitform($reqdata='null')
     {
 
         // Common variables
@@ -44,14 +43,14 @@ class authController
         $successMsg = '';
 
 
-        $login_type = isset($_GET['type']) ? $_GET['type'] : 'employee';
+        $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
 
 
         // Handle form submission
-        if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['login'])) {
+        if (isset($reqdata['login'])) {
 
-            $username = trim($_POST['username']);
-            $password = trim($_POST['password']);
+            $username = trim($reqdata['username']);
+            $password = trim($reqdata['password']);
 
 
             if ($login_type == "admin") {
@@ -108,7 +107,7 @@ class authController
         }
     }
 
-    public function logout()
+    public function logout($reqdata='null')
     {
         // session_start();
         session_unset();
@@ -121,7 +120,7 @@ class authController
 
 
 
-    public function adminpage()
+    public function adminpage($reqdata='null')
     {
         $arr = ['path' => 'View/CommonView/adminHomeView.php'];
         return $arr;

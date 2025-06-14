@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +71,7 @@
                         <?php foreach ($data as $app): ?>
                             <tr>
 
-                                <td><?= htmlspecialchars(ucfirst($app['employee_id']['employee_name'])) ?></td>
+                                <td><?= htmlspecialchars(ucfirst($app['employee_id'])) ?></td>
 
                                 <td><?= htmlspecialchars (ucfirst(str_replace('_',' ',$app['leave_type_id']))) ?></td>
                                 <td><?= htmlspecialchars(formatDate($app['leave_start_date'])) ?></td>

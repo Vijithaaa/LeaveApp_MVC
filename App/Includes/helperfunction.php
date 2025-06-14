@@ -1,6 +1,6 @@
 <?php
 
-//  include_once 'includes/functions.php'; 
+
 
 function displayAlertMessages()
 {
@@ -19,7 +19,7 @@ function displayAlertMessages()
     }
 }
 
-displayAlertMessages();
+
 
 
 // Function to format date as "22nd May 2025"

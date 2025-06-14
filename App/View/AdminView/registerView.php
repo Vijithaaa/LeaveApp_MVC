@@ -1,6 +1,4 @@
-<?php
-// include './App/Includes/helperfunction.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
