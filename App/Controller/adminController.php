@@ -22,10 +22,12 @@ class adminController
 
     // -----------------------------------------------------------------------------------------------
 
-    public function form($reqdata='null')
+    public function form($reqdata = 'null')
     {
 
         $SelectRoleName = $this->model->SelectRoleName();
+        // print_r($SelectRoleName);
+
 
         $role = [];
         foreach ($SelectRoleName['msg'] as $list) {
@@ -37,7 +39,7 @@ class adminController
 
 
 
-    public function submitform($reqdata='null')
+    public function submitform($reqdata = 'null')
     {
 
 
@@ -144,7 +146,7 @@ class adminController
     //=====================================================================================================================
     //approve
 
-    public function approve($reqdata='null')
+    public function approve($reqdata = 'null')
     {
 
         // //get the application_id from  form in same page
@@ -167,6 +169,10 @@ class adminController
             if ($status == 'approved') {
 
                 $Selecting_appIds = $this->model->Selecting_appIds($application_id);
+                // print_r($Selecting_appIds);
+
+
+
                 $emp_id = $Selecting_appIds['msg']['employee_id'];
                 $leave_id = $Selecting_appIds['msg']['leave_type_id'];
                 $start_date = date_create($Selecting_appIds['msg']['leave_start_date']);
@@ -175,7 +181,6 @@ class adminController
                 $total_days = $interval->days + 1;
 
                 $Insertdata_to_LeaveTrack = $this->model->Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id);
-
             } //status == approved
 
 
@@ -184,25 +189,26 @@ class adminController
 
         $application = [];
         // $SelectAllApplication = leaveapp_crul_opration([], "SelectAllApplication");
-
-        $SelectAllApplication = $this->model->SelectAllApplication();
-
+        $status = 'pending';
+        $SelectAllApplication = $this->model->SelectAllApplication($status);
+        // print_r($SelectAllApplication); 
         if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
             $applications = $SelectAllApplication['msg'];
 
-        // Get leave types and employee names
-        $leaveTypeData = new employeeController();
-        $leaveType = $leaveTypeData->leavetypesCommon();
-        
-        $leaveIdName = $leaveType['leaveIdName'];
- 
+            // Get leave types and employee names
+            $leaveTypeData = new employeeController();
+            $leaveType = $leaveTypeData->leavetypesCommon();
+
+            $leaveIdName = $leaveType['leaveIdName'];
+
             //employee name
             $selectEmployeeName = $this->model->selectEmployeeName();
+            // print_r($selectEmployeeName);
             $empIdName = [];
             foreach ($selectEmployeeName['msg'] as $data) {
                 $empIdName[$data['employee_id']] = $data['employee_name'];
             }
-               
+
             foreach ($applications as $app) {
                 $leaveTypeId = $app['leave_type_id'];
                 $leaveTypeName = $leaveIdName[$leaveTypeId] ?? 'Unknown Leave Type';

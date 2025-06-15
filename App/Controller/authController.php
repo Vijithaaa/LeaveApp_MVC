@@ -57,7 +57,9 @@ class authController
 
                 $userData = $this->model->adminAuth($username, $password);
 
-                if ($userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username && $userData['msg']['pass'] == $password) {
+
+                if ($userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username 
+                                                            && $userData['msg']['pass'] == $password) {
                     // session_start();
                     // $_SESSION['admin_logged_in'] = true;
                     $_SESSION['ADMIN'] = [
@@ -75,9 +77,9 @@ class authController
             } else {
 
                 $userData = $this->model->empAuthenticate($username, $password);
-                // print_r($userData);
 
-                if ($userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username && $userData['msg']['employee_id'] == $password) {
+                if ($userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username 
+                                                           && $userData['msg']['employee_id'] == $password) {
                     // session_start();
                     $_SESSION['EMP'] = [
                         'empId' => $userData['msg']['employee_id'],
@@ -88,9 +90,7 @@ class authController
                     ];
                     session_regenerate_id(true); // Destroys old session
 
-                    // $arr = [
-                    //     'path' => 'View/EmployeeView/leavetracking.php',
-                    // ];
+                    
 
                     include 'employeeController.php';
                     $obj = new employeeController();
@@ -98,6 +98,7 @@ class authController
 
                     // return $arr;
                 } else {
+                                                            // echo "muruga";
 
                     $errorMsg = "Invalid employee credentials";
                     setcookie('errorMsg', $errorMsg, time() + 2);

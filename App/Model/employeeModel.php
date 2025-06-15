@@ -11,63 +11,67 @@ class employeeModel extends Database
 
     public function SelectRoleId($empId)
     {
-        $stmt = $this->pdo->prepare('SELECT role_id FROM employee_detail where employee_id = :employee_id');
-        $stmt->bindParam(':employee_id', $empId);
-        if ($stmt->execute() && $stmt->rowCount() > 0) {
-            $value = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($value) {
 
-                return (['status' => 'success', 'msg' => $value]);
-            } else {
-                return (['status' => 'error', 'msg' => 'no such user in db']);
-            }
-        }
+              $querydata = [
+            'column_name' => "role_id",
+            'table_name' => "employee_detail",
+            'condition' => [
+                'employee_id'=>$empId
+            ]
+        ];
+   
+        $data =  $this->select($querydata,$multiple=false);
+
+        return $data;
+
     }
 
 
     //leave track
     public function fetchRoleName($roleId)
     {
-        $stmt = $this->pdo->prepare("SELECT role_name FROM role_detail WHERE role_id = :role_id");
-        $stmt->bindParam(':role_id', $roleId);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($value) {
-                return ((['status' => 'success', 'msg' => $value]));
-            } else {
-                return ((['status' => 'error', 'msg' => 'no such role_id in db']));
-            }
-        }
+
+           $querydata = [
+            'column_name' => "role_name",
+            'table_name' => "role_detail",
+            'condition' => [
+                'role_id'=>$roleId
+            ]
+        ];
+   
+        $data =  $this->select($querydata,$multiple=false);
+
+        return $data;
+
     }
 
     public function getAllLeaveTypes()
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM leave_types");
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            } else {
-                return (['status' => 'error', 'msg' => 'no such leavetype in db']);
-            }
-        }
+
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_types",
+            'condition' => []
+        ];
+        $data =  $this->select($querydata,$multiple=true);
+        return $data;
+
     }
 
     public function fetchLeaveTaken($empId)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM leave_tracking WHERE employee_id =:employee_id ");
-        $stmt->bindParam(':employee_id', $empId);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no leave record in db']);
-        }
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_tracking",
+            'condition' => [
+                'employee_id'=>$empId
+            ]
+        ];
+        $data =  $this->select($querydata,$multiple=true);
+        return $data;
+
+
+    
     }
 
 
@@ -79,19 +83,18 @@ class employeeModel extends Database
     public function SelectLeaveFormData($empId, $application_id)
     {
 
-        $stmt = $this->pdo->prepare("SELECT * FROM leave_application 
-                                        WHERE application_id = :appId AND employee_id = :empId");
-        $stmt->bindParam(':empId', $empId);
-        $stmt->bindParam(':appId', $application_id);
-        $stmt->execute();
-        $existingData = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($existingData) {
-            if ($stmt->rowCount() > 0) {
-                return (['status' => 'success', 'msg' => $existingData]);
-            } else {
-                return (['status' => 'error', 'msg' => 'No matching pending record found to update']);
-            }
-        }
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_application",
+            'condition' => [
+                'application_id'=>$application_id,
+                'employee_id'=>$empId
+
+            ]
+        ];
+        $data =  $this->select($querydata,$multiple=false);
+        return $data;
+
     }
 
 
@@ -152,17 +155,18 @@ class employeeModel extends Database
        public function SelectApplication($empId)
     {
 
-        $stmt = $this->pdo->prepare("SELECT * from leave_application WHERE employee_id=:employee_id");
-        $stmt->bindParam(':employee_id', $empId);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no leave record in db']);
-        }
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_application",
+            'condition' => [
+                'employee_id'=>$empId
+
+            ]
+        ];
+        $data =  $this->select($querydata,$multiple=true);
+        return $data;
+
+    
     }
 
 

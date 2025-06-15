@@ -13,15 +13,14 @@ class adminModel extends Database
 
     public function SelectRoleName()
     {
-        $stmt = $this->pdo->prepare("SELECT * from role_detail");
-        if ($stmt->execute() && $stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no role_detail in db']);
-        }
+
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "role_detail",
+            'condition' => []
+        ];
+        $data =  $this->select($querydata, $multiple = true);
+        return $data;
     }
     public function InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath)
     {
@@ -45,42 +44,40 @@ class adminModel extends Database
 
 
     //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//approve 
+    //approve 
 
-    public function SelectAllApplication()
-    {
-        $stmt = $this->pdo->prepare("SELECT * from leave_application WHERE status='pending'");
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no leave record in db']);
-        }
-    
-
-}
-
-
-
-   public function selectEmployeeName()
+    public function SelectAllApplication($status)
     {
 
-        $stmt = $this->pdo->prepare("SELECT employee_id,employee_name from employee_detail");
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $value = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no name record in db']);
-        }
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_application",
+            'condition' => [
+                'status' => $status
+            ]
+        ];
+        $data =  $this->select($querydata, $multiple = true);
+        return $data;
+
+        
     }
 
-        public function updateLeaveApp($status, $application_id)
+
+
+    public function selectEmployeeName()
+    {
+
+        $querydata = [
+            'column_name' => ["employee_id","employee_name"],
+            'table_name' => "employee_detail",
+            'condition' => []
+        ];
+        $data =  $this->select($querydata, $multiple = true);
+        return $data;
+   
+    }
+
+    public function updateLeaveApp($status, $application_id)
     {
         $stmt = $this->pdo->prepare("UPDATE leave_application 
                         SET 
@@ -103,22 +100,33 @@ class adminModel extends Database
     }
 
 
-      public function Selecting_appIds($application_id)
+    public function Selecting_appIds($application_id)
     {
-        $stmt = $this->pdo->prepare("SELECT * from leave_application where application_id=:application_id");
-        $stmt->bindParam(':application_id', $application_id);
-        if ($stmt->execute() && $stmt->rowCount() > 0) {
-            $value = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($value) {
-                return (['status' => 'success', 'msg' => $value]);
-            }
-        } else {
-            return (['status' => 'error', 'msg' => 'no application details in db']);
-        }
+
+        $querydata = [
+            'column_name' => "*",
+            'table_name' => "leave_application",
+            'condition' => [
+                'application_id' => $application_id
+            ]
+        ];
+        $data =  $this->select($querydata, $multiple = false);
+        return $data;
+
+        // $stmt = $this->pdo->prepare("SELECT * from leave_application where application_id=:application_id");
+        // $stmt->bindParam(':application_id', $application_id);
+        // if ($stmt->execute() && $stmt->rowCount() > 0) {
+        //     $value = $stmt->fetch(PDO::FETCH_ASSOC);
+        //     if ($value) {
+        //         return (['status' => 'success', 'msg' => $value]);
+        //     }
+        // } else {
+        //     return (['status' => 'error', 'msg' => 'no application details in db']);
+        // }
     }
 
 
-        public function Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id)
+    public function Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id)
     {
         $stmt = $this->pdo->prepare("INSERT into leave_tracking(employee_id,leave_type_id,leave_taken) 
                                   values (:emp_id,:leave_id,:total_days)");
@@ -132,5 +140,4 @@ class adminModel extends Database
             return (['status' => 'error', 'msg' => 'data not inserted']);
         }
     }
-
 }
