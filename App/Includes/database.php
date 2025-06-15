@@ -16,126 +16,132 @@ class Database
         }
     }
 
-    // public function getConnection(){
-    //     return $this->pdo;
-    // }
 
-
-    // $obj = new Database();
-    // $obj->getConnection();
-
-    //    $querydata = [
-    //             'column_name'=>"*",
-    //             'table_name'=>"admin",
-    //             'condition'=>[
-    //                 'user'=>$username,
-    //                 'pass'=>$password
-    //             ]
-    //         ];
-
-
-    // public function select($querydata){
-    //     foreach($querydata['condition'] $key => $value){
-
-    //      $stmt = $this->pdo->prepare("SELECT" .$querydata['column_name']. "from" .$querydata['table_name']. 
-    //                                       "WHERE" 
-    //                                       .$key."=:".$key ."AND" .$key."=:".$key);
-    //         // $stmt->bindParam(':name', $username);
-    //         // $stmt->bindParam(':pass', $password);
-    //         $stmt->bindParam(':'.$key, $value);
-    //         $stmt->execute();
-    //         if ($stmt->rowCount() > 0) {
-    //             $value = $stmt->fetch(PDO::FETCH_ASSOC);
-    //             return (['status' => 'success', 'msg' => $value]);
-    //         } 
-    //         else {
-    //             return (['status' => 'error', 'msg' => false]);
-    //         }
-    //     }
-
-    // }
-
-
-
-    // public function select($querydata, $multiple = false)
-    // {
-    //     $columns = $querydata['column_name'];
-    //     $table = $querydata['table_name'];
-    //     $conditions = $querydata['condition'];
-
-    //     // Build WHERE clause dynamically
-    //     $whereClauses = [];
-    //     foreach ($conditions as $key => $value) {
-    //         $whereClauses[] = "$key = :$key";
-    //     }
-    //     $whereSql = implode(" AND ", $whereClauses);
-
-    //     // Final SQL query
-    //     $sql = "SELECT $columns FROM $table WHERE $whereSql";
-    //     // echo $sql;
-    //     // print_r($querydata);
-
-    //     // Prepare and bind
-    //     $stmt = $this->pdo->prepare($sql);
-    //     foreach ($conditions as $key => $value) {
-    //         $stmt->bindValue(":$key", $value);
-    //         // echo $key . " " . $value;
-    //     }
-
-    //     $stmt->execute();
-      
-    //     // print_r($stmt->rowCount() > 0);
-
-    //     if ($stmt->rowCount() > 0) {
-    //         $data = $multiple ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
-    //         return ['status' => 'success', 'msg' => $data];
-    //     } else {
-    //         return ['status' => 'error', 'msg' => false];
-    //     }
-    // }
-
-
-    
 
 
     public function select($querydata, $multiple = false)
+    {
+        $columns = $querydata['column_name'];
+        $table = $querydata['table_name'];
+        $conditions = $querydata['condition'];
+
+        $columns = is_array($querydata['column_name']) ? implode(", ", $querydata['column_name']) : $querydata['column_name'];
+
+        // Build WHERE clause only if conditions exist
+        $whereSql = '';
+        if (!empty($conditions)) {
+            $whereClauses = [];
+            foreach ($conditions as $key => $value) {
+                $whereClauses[] = "$key = :$key";
+            }
+            $whereSql = ' WHERE ' . implode(" AND ", $whereClauses);
+        }
+
+        // Final SQL query
+        $sql = "SELECT $columns FROM $table" . $whereSql;
+
+        // Prepare and bind
+        $stmt = $this->pdo->prepare($sql);
+        if (!empty($conditions)) {
+            foreach ($conditions as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+        }
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $data = $multiple ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
+            return ['status' => 'success', 'msg' => $data];
+        } else {
+            return ['status' => 'error', 'msg' => false];
+        }
+    }
+
+    public function insert($querydata, $returnId = false)
+    {
+        $table = $querydata['table_name'];
+        $data = $querydata['data'];
+
+        $columns = implode(",", array_keys($data));
+        $values = ":" . implode(", :", array_keys($data));
+        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        // echo "$sql";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($data as $key => $val) {
+            $stmt->bindvalue(":$key", $val);
+        }
+        if ($stmt->execute()) {
+            if ($returnId) { //true
+                return [
+                    'status' => 'success',
+                    'msg' => ['last_id' => $this->pdo->lastInsertId()]
+                ];
+            } else {
+                return [
+                    'status' => 'success',
+                    'msg' => true
+                ];
+            }
+        } else {
+            return [
+                'status' => 'error',
+                'msg' => 'Insert failed'
+            ];
+        }
+    }
+
+
+public function update($querydata)
 {
-    $columns = $querydata['column_name'];
+    // Extract parameters
     $table = $querydata['table_name'];
-    $conditions = $querydata['condition'];
+    $data = $querydata['data'];
+    $condition = $querydata['condition'];
 
-    $columns = is_array($querydata['column_name']) ? implode(", ", $querydata['column_name']) : $querydata['column_name'];
+    // Build SET clause
+    $setParts = [];
+    foreach ($data as $key => $value) {
+        $setParts[] = "$key = :$key";
+    }
+    $setClause = implode(", ", $setParts);
 
-    // Build WHERE clause only if conditions exist
-    $whereSql = '';
-    if (!empty($conditions)) {
-        $whereClauses = [];
-        foreach ($conditions as $key => $value) {
-            $whereClauses[] = "$key = :$key";
+    // Build WHERE clause
+    $whereClause = "";
+    $condParams = [];
+    
+    if (!empty($condition)) {
+        $whereParts = [];
+        foreach ($condition as $key => $value) {
+            $param = "cond_$key";
+            $whereParts[] = "$key = :$param";
+            $condParams[$param] = $value;
         }
-        $whereSql = ' WHERE ' . implode(" AND ", $whereClauses);
+        $whereClause = " WHERE " . implode(" AND ", $whereParts);
     }
 
-    // Final SQL query
-    $sql = "SELECT $columns FROM $table" . $whereSql;
-
-    // Prepare and bind
+    // Prepare and execute query
+    $sql = "UPDATE $table SET $setClause $whereClause";
     $stmt = $this->pdo->prepare($sql);
-    if (!empty($conditions)) {
-        foreach ($conditions as $key => $value) {
-            $stmt->bindValue(":$key", $value);
-        }
+
+    // Bind SET values
+    foreach ($data as $key => $val) {
+        $stmt->bindValue(":$key", $val);
     }
 
+    // Bind WHERE values
+    foreach ($condParams as $key => $val) {
+        $stmt->bindValue(":$key", $val);
+    }
+
+    // Execute and return result
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        $data = $multiple ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
-        return ['status' => 'success', 'msg' => $data];
+        return ['status' => "success", 'msg' => "Updated successfully"];
     } else {
-        return ['status' => 'error', 'msg' => false];
+        return ['status' => "error", 'msg' => "No rows affected"];
     }
-}
-
     
 }

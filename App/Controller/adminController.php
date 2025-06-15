@@ -116,7 +116,7 @@ class adminController
 
                 if ($file) {
 
-                    $empId = $insert['msg']['employee_id']; // assumes you return ID from DB
+                    $empId = $insert['msg']['last_id']; // assumes you return ID from DB
                     $status = 'active'; //default
 
                     fputcsv($file, [$empId, $empName, $empEmail, $empGender, $empDateOfJoin, $status, $empRoleId, $photoPath]);
@@ -154,7 +154,9 @@ class adminController
             $application_id = ($reqdata['application_id']);  //hidden input
             $status = ($reqdata['actions']); //hidden input
 
-            $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id);
+            $response_date = "CURRENT_TIMESTAMP()";
+
+            $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id,$response_date);
 
 
             if ($updateLeaveApp) {
