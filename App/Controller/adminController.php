@@ -16,7 +16,7 @@ class AdminController
 
 
 
-
+// showing form for employee registration
     public function form($reqdata = 'null')
     {
 
@@ -33,30 +33,29 @@ class AdminController
     }
 
 
-
+// inserting a employee data's to database
     public function submitform($reqdata = 'null')
     {
 
 
         $uploadFolder = "assets/images/employees/";
-        $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];  // tandard web-safe image formats
         $maxFileSize = 2 * 1024 * 1024; // 2MB
 
 
         if (isset($reqdata['register_employee_details'])) {
 
             $empName = $empEmail = $empGender = $empDateOfJoin = $empRoleId = $photoPath = '';
-            // Get form data directly from $_POST
             $empName = $reqdata['employee_name'];
             $empEmail = $reqdata['emp_email_id'];
             $empGender = $reqdata['gender'];
             $empDateOfJoin = $reqdata['date_of_joining'];
             $empRoleId = $reqdata['role_id'];
 
-            // Handle photo upload
             if (!empty($_FILES['employee_photo']['tmp_name'])) {
 
                 $file = $_FILES['employee_photo'];
+
                 // Check file type
                 if (!in_array($file['type'], $allowedFileTypes)) {
                     $errorMsg = "Only JPG, PNG, or GIF images allowed.";
@@ -70,7 +69,6 @@ class AdminController
                     header("Location: index.php?controller=admin&action=form");
                 } else {
                     // Save the file
-                    // $newFilename = 'emp_' . uniqid() . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
 
                     $newFilename = $file['name'];
                     if (move_uploaded_file($file['tmp_name'], $uploadFolder . $newFilename)) {
@@ -105,13 +103,13 @@ class AdminController
                     $file = fopen($csvFilePath, 'w');
                     fputcsv($file, ['employee_id', 'employee_name', 'emp_email_id', 'gender', 'date_of_joining', 'status', 'role_id', 'employee_image']);
                 } else {
-                    $file = fopen($csvFilePath, 'a'); // append mode
+                    $file = fopen($csvFilePath, 'a'); 
                 }
 
                 if ($file) {
 
-                    $empId = $insert['msg']['last_id']; // assumes you return ID from DB
-                    $status = 'active'; //default
+                    $empId = $insert['msg']['last_id']; 
+                    $status = 'active'; 
 
                     fputcsv($file, [$empId, $empName, $empEmail, $empGender, $empDateOfJoin, $status, $empRoleId, $photoPath]);
 
@@ -120,7 +118,7 @@ class AdminController
 
                 $arr = ['data' => $insert, 'path' => 'View/AdminView/registerView.php'];
                 return $arr;
-            }  //insert status = success
+            }  //endif  insert status = success
 
 
             else {
@@ -138,21 +136,19 @@ class AdminController
 
 
     //=====================================================================================================================
-    //approve
-
+    
+    //approve -> list the pending leaves of employee and response for their request
     public function approve($reqdata = 'null')
     {
 
         $application = [];
-        // $SelectAllApplication = leaveapp_crul_opration([], "SelectAllApplication");
         $status = 'pending';
         $orderby = "reqested_date desc"; 
         $SelectAllApplication = $this->model->SelectAllApplication($status,$orderby);
-        // print_r($SelectAllApplication); 
         if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
             $applications = $SelectAllApplication['msg'];
 
-            // Get leave types and employee names
+            // get leave types and employee names
             $leaveTypeData = new employeeController();
             $leaveType = $leaveTypeData->getAll_leaveTypes();
 
@@ -160,7 +156,6 @@ class AdminController
 
             //employee name
             $selectEmployeeName = $this->model->selectEmployeeName();
-            // print_r($selectEmployeeName);
             $empIdName = [];
             foreach ($selectEmployeeName['msg'] as $data) {
                 $empIdName[$data['employee_id']] = $data['employee_name'];
@@ -191,10 +186,10 @@ class AdminController
         return $arr;
     }
 
-
+// 
     public function status($reqdata){
 
-           // //get the application_id from  form in same page
+           // getting the application_id from  form in same page
         if (isset($reqdata['actions']) && isset($reqdata['application_id'])) {
             $application_id = ($reqdata['application_id']);  //hidden input
             $status = ($reqdata['actions']); //hidden input
@@ -203,7 +198,6 @@ class AdminController
 
             $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id,$response_date);
 
-            // print_r($updateLeaveApp);
 
             if (is_array($updateLeaveApp)) {
                 $successMsg = "status updated";
@@ -212,11 +206,10 @@ class AdminController
 
             }
 
-            //     //select leave application if status == 'approved'  for updating the leave_tracking page to show no.of leave count for  particular employeee
+              //select leave application if status == 'approved'  for updating the leave_tracking page to show no.of leave count for  particular employeee
             if ($status == 'approved') {
 
                 $Selecting_appIds = $this->model->Selecting_appIds($application_id);
-                // print_r($Selecting_appIds);
 
                 $emp_id = $Selecting_appIds['msg']['employee_id'];
                 $leave_id = $Selecting_appIds['msg']['leave_type_id'];
@@ -226,7 +219,7 @@ class AdminController
                 $total_days = $interval->days + 1;
 
                 $Insertdata_to_LeaveTrack = $this->model->Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id);
-            } //status == approved
+            } //end if status == approved
 
 
         } // if post data
