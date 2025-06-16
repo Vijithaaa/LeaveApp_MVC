@@ -1,8 +1,5 @@
 <?php
 require_once __DIR__ . '/../Model/employeeModel.php';
-// require_once __DIR__ . '/../View/CommonView/navbar.php';
-// require_once __DIR__.'/../View/EmployeeView/leavehistory.php';
-
 
 class employeeController
 {
@@ -18,7 +15,6 @@ class employeeController
         $LeaveTypes = [];
         $LeaveTypeIdName = [];
         $getAllleaveTypes = $this->model->getAllLeaveTypes();
-        // print_r($getAllleaveTypes);
 
         $storeLeaveTypes = $getAllleaveTypes['msg'];
         foreach ($storeLeaveTypes as $list) {
@@ -32,8 +28,6 @@ class employeeController
 
     public function leavetrack($reqdata = 'null')
     {
-
-        // if (isset($_SESSION['EMP']['emp_logged_in']) && $_SESSION['EMP']['emp_logged_in'] == true) {
 
         // Employee data
         $empName = ucfirst($_SESSION['EMP']['empName']);
@@ -52,7 +46,6 @@ class employeeController
         $leave = [];
         $total_leave = 0;
         $fetchLeaveTaken = $this->model->fetchLeaveTaken($empId);
-        // print_r($fetchLeaveTaken);
 
         if (isset($fetchLeaveTaken['msg']) && is_array($fetchLeaveTaken['msg'])) {
             $LeaveTakenCount = $fetchLeaveTaken['msg'];
@@ -192,8 +185,7 @@ class employeeController
                         header("Location: index.php?controller=employee&action=showleaveform");
                     }
                 }
-            }  //else  ku application id update ku
-            // $navbarExtraContent = "<span class='me-3 text-primary'>" . ($application_id ? 'Edit Application' : 'Leave Application') . "</span>";
+            }  
         }
     }
 
@@ -205,14 +197,13 @@ class employeeController
 
     public function leavehistory($reqdata = 'null')
     {
-        // if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMMP']['emp_logged_in']  == true) {
 
-        // $empName = $_SESSION['EMP']['empName'];
         $empId = $_SESSION['EMP']['empId'];
+        $orderby = "reqested_date desc"; 
+         
 
         $application = [];
-        $SelectApplication = $this->model->SelectApplication($empId);
-        // print_r($SelectApplication);
+        $SelectApplication = $this->model->SelectApplication($empId,$orderby);
 
         if (is_array($SelectApplication) && isset($SelectApplication['msg']) && is_array($SelectApplication['msg'])) {
             $SelectApplication = $SelectApplication['msg'];
@@ -248,7 +239,6 @@ class employeeController
                     'days' => calculateLeaveDays($app['leave_start_date'], $app['leave_end_date']) // Calculate days here
 
                 ];
-                // echo "<pre>";print_r($app);echo "</pre>";
             }
         }
 
@@ -259,7 +249,6 @@ class employeeController
         ];
         return $arr;
 
-        $navbarExtraContent = "<span class='me-3 text-primary'>" . "Leave History" . "</span>";
         // }
     }
 

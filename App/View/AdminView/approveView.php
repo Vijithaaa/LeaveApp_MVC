@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/272114282e.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -17,12 +19,7 @@
 
 
     <title>Leave History</title>
-    <style>
-        .blank {
-            background-color: transparent;
-            height: 20px;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -81,7 +78,7 @@
                                 <td><?= htmlspecialchars(formatDate($app['leave_end_date'])) ?></td>
                                 <td class="days"><?= $app['days'] ?> day<?= $app['days'] != 1 ? 's' : '' ?></td>
 
-                                <td><?= htmlspecialchars($app['reqested_date']) ?></td>
+                                <td><?= formatDateTime($app['reqested_date']) ?></td>
 
                                 <td class="status-<?= $app['status'] ?>">
                                     <?= ucfirst(htmlspecialchars($app['status'])) ?>

@@ -36,3 +36,7 @@ h3 span {
     color: #011d48;
     font-weight: bold;
 }
+.blank {
+            background-color: transparent;
+            height: 15vh;
+        }

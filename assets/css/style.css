@@ -29,7 +29,7 @@
 
 
 
-
+/* error ans success msg */
 
 .error {
     color: red;
@@ -46,7 +46,7 @@
 
 
 
-
+/* navbar profile */
 
 .profile-photo {
     width: 50px;
@@ -61,5 +61,11 @@
     align-items: center;
 }
 
+a{
+
+    padding: 13px !important;
+    margin-right: 10px !important;
+    
+}
 
 

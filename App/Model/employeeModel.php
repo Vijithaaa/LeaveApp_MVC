@@ -146,12 +146,13 @@ class employeeModel extends Database
     //history
 
 
-       public function SelectApplication($empId)
+       public function SelectApplication($empId,$orderby)
     {
 
         $querydata = [
             'column_name' => "*",
             'table_name' => "leave_application",
+            'orderby'=>$orderby,
             'condition' => [
                 'employee_id'=>$empId
 

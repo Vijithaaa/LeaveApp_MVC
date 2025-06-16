@@ -47,12 +47,13 @@ class adminModel extends Database
     //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     //approve 
 
-    public function SelectAllApplication($status)
+    public function SelectAllApplication($status,$orderby)
     {
 
         $querydata = [
             'column_name' => "*",
             'table_name' => "leave_application",
+            'orderby'=>$orderby,
             'condition' => [
                 'status' => $status
             ]

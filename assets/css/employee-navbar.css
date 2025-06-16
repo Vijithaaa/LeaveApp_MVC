@@ -16,7 +16,7 @@
     position: fixed;
     top: 0px;
     width: 100%;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(7px);
     z-index: 999;
 }
 
@@ -53,8 +53,10 @@
   width: 100%;
   padding: 5px;
   text-align: center;
-  background: #c4d3ee;
+  background: #c4d3ee70;
   border-top: 1px solid #ddd;
+  z-index: 1;
+  backdrop-filter: blur(7px);
 }
 
 /* Add padding to main content to prevent overlap */

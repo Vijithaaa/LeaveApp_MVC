@@ -33,6 +33,7 @@
                     </div>
 
                     <div class="form-group button-container">
+                        <a href="index.php?controller=auth&action=auth" class="my-custom-button" style="text-decoration:none;">Back</a>
                         <button type="submit" class="my-custom-button" name="login">Login</button>
                     </div>
                 </form>

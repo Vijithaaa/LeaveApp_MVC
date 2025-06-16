@@ -1,5 +1,5 @@
 <?php
-session_name("user");
+// session_name("user");
 session_start();
 include './App/Includes/helperfunction.php';
 

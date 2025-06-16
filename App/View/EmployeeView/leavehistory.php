@@ -15,19 +15,17 @@ include './App/View/CommonView/navbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/leave-history.css">
     <link rel="stylesheet" href="assets/css/employee-navbar.css">
 
     <title>Leave History</title>
-    <style>
-      
-    </style>
+
 </head>
 
 <body>
@@ -72,8 +70,8 @@ include './App/View/CommonView/navbar.php';
                                     </td>
 
 
-                                    <td><?= htmlspecialchars($app['reqested_date']) ?></td>
-                                    <td> <?= !empty($app['response_date']) ? htmlspecialchars($app['response_date']) : 'N/A' ?> </td>
+                                    <td><?= formatDateTime($app['reqested_date']) ?></td>
+                                    <td> <?= !empty($app['response_date']) ? formatDateTime($app['response_date']) : 'N/A' ?> </td>
                                     <td class="text-center">
                                         <?php if ($app['status'] == 'pending'): ?>
 
@@ -87,8 +85,7 @@ include './App/View/CommonView/navbar.php';
                                             
                                             <form action="index.php?controller=employee&action=deleteRow" method="post" style="display:inline;">
                                                 <input type="hidden" name="application_id" value="<?= $app['application_id'] ?>">
-                                                <button type="submit" class="text-button delete" >
-                                                    <!-- onclick="return confirm('Are you sure you want to delete this application?');" -->
+                                                <button type="submit" class="text-button delete"  onclick="return confirm('Are you sure you want to delete this application?');" >
                                                     <i class="bi bi-trash3"></i> Delete
                                                 </button>
                                             </form>

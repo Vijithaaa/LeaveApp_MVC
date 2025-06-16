@@ -110,3 +110,9 @@ justify-content: center;
             background-color: transparent;
             height: 55px;
         }
+
+.form-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #022f53;
+}

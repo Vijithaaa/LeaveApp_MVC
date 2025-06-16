@@ -22,11 +22,19 @@ function displayAlertMessages()
 
 
 
-// Function to format date as "22nd May 2025"
+//22nd May 25
 function formatDate($dateString)
 {
     $date = new DateTime($dateString);
     $day = $date->format('jS M y');
+    return $day;
+}
+
+//16th Jun ,11:08 AM
+function formatDateTime($dateString)
+{
+    $date = new DateTime($dateString);
+    $day = $date->format('jS M ,H:i A');
     return $day;
 }
 
@@ -37,7 +45,7 @@ function calculateLeaveDays($startDate, $endDate)
     $end = new DateTime($endDate);
     $interval = $start->diff($end);
     return $interval->days + 1; // +1 to include both start and end days
-} // 
+}
 
 //fuction for employeeProfile
 function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/leaveTracking_oop/asset/images/employees/')
@@ -55,3 +63,5 @@ function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/lea
 
     return $html;
 }
+
+

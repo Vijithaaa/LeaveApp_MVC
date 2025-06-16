@@ -149,49 +149,11 @@ class adminController
     public function approve($reqdata = 'null')
     {
 
-        // // //get the application_id from  form in same page
-        // if (isset($reqdata['actions']) && isset($reqdata['application_id'])) {
-        //     $application_id = ($reqdata['application_id']);  //hidden input
-        //     $status = ($reqdata['actions']); //hidden input
-
-        //     $response_date = date('Y-m-d H:i:s');
-
-        //     $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id,$response_date);
-        //     // print_r($updateLeaveApp);
-
-        //     if (is_array($updateLeaveApp)) {
-        //         $successMsg = "status updated";
-        //         setcookie('successMsg', $successMsg, time() + 2);
-        //         header("Location: index.php?controller=admin&action=approve");
-
-        //     }
-
-
-
-        //     //     //select leave application if status == 'approved'  for updating the leave_tracking page to show no.of leave count for  particular employeee
-        //     if ($status == 'approved') {
-
-        //         $Selecting_appIds = $this->model->Selecting_appIds($application_id);
-        //         // print_r($Selecting_appIds);
-
-        //         $emp_id = $Selecting_appIds['msg']['employee_id'];
-        //         $leave_id = $Selecting_appIds['msg']['leave_type_id'];
-        //         $start_date = date_create($Selecting_appIds['msg']['leave_start_date']);
-        //         $end_date = date_create($Selecting_appIds['msg']['leave_end_date']);
-        //         $interval = $start_date->diff($end_date);
-        //         $total_days = $interval->days + 1;
-
-        //         $Insertdata_to_LeaveTrack = $this->model->Insertdata_to_LeaveTrack($total_days, $leave_id, $emp_id);
-        //     } //status == approved
-
-
-        // } // if post data
-
-
         $application = [];
         // $SelectAllApplication = leaveapp_crul_opration([], "SelectAllApplication");
         $status = 'pending';
-        $SelectAllApplication = $this->model->SelectAllApplication($status);
+        $orderby = "reqested_date desc"; 
+        $SelectAllApplication = $this->model->SelectAllApplication($status,$orderby);
         // print_r($SelectAllApplication); 
         if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
             $applications = $SelectAllApplication['msg'];

@@ -21,11 +21,15 @@ class Database
 
     public function select($querydata, $multiple = false)
     {
-        $columns = $querydata['column_name'];
-        $table = $querydata['table_name'];
-        $conditions = $querydata['condition'];
-
         $columns = is_array($querydata['column_name']) ? implode(", ", $querydata['column_name']) : $querydata['column_name'];
+        // $columns = $querydata['column_name'];
+      
+        $table = $querydata['table_name'];
+        $conditions = $querydata['condition']; 
+        
+        $orderby = isset($querydata['orderby']) ? $querydata['orderby'] : null;
+        // $orderby = $querydata['orderby'];
+
 
         $whereSql = '';
         if (!empty($conditions)) {
@@ -36,7 +40,14 @@ class Database
             $whereSql = ' WHERE ' . implode(" AND ", $whereClauses);
         }
 
-        $sql = "SELECT $columns FROM $table" . $whereSql;
+        $orderBySql = '';
+        if (!empty($orderby)) {
+            $orderBySql = ' ORDER BY ' . $orderby;
+
+        }
+
+        $sql = "SELECT $columns FROM $table" . $whereSql . $orderBySql;
+        // echo "$sql";
 
         $stmt = $this->pdo->prepare($sql);
         if (!empty($conditions)) {
@@ -54,6 +65,15 @@ class Database
             return ['status' => 'error', 'msg' => false];
         }
     }
+
+
+
+    
+
+
+
+
+
 
     public function insert($querydata, $returnId = false)
     {
@@ -118,7 +138,7 @@ class Database
 
         $sql = "UPDATE $table SET $setClause $whereClause";
         // print_r($sql);
-        
+
         $stmt = $this->pdo->prepare($sql);
 
         foreach ($data as $key => $val) {

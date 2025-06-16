@@ -34,7 +34,6 @@ class authController
             'path' => 'View/AuthView/loginView.php'
 
         ];
-        
         return $arr;
     }
 
@@ -65,10 +64,17 @@ class authController
                     $userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username
                     && $userData['msg']['pass'] == $password
                 ) {
-                    
+                    // session_start();
+                    // $_SESSION['admin_logged_in'] = true;
                     $_SESSION['ADMIN'] = [
                         'admin_logged_in' => true
                     ];
+
+                    // $arr = [
+                    //     'path' => 'View/CommonView/adminHomeView.php'
+                    //     // 'path' => 'View/AuthView/loginView.php'
+                    // ];
+                    // return $arr;
 
                     include 'adminController.php';
                     $obj = new adminController();

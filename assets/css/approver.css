@@ -48,3 +48,8 @@
   text-decoration: underline;
   transform: scale(1.05);
 }
+
+       .blank {
+            background-color: transparent;
+            height: 10px;
+        }
