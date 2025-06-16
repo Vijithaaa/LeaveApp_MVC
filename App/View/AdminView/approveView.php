@@ -35,6 +35,9 @@
             <span class="h3">Leave Approval</span>
             <div class="d-flex">
                 <ul class="navbar-nav flex-row">
+                      <li class="nav-item me-3">
+                        <a class="nav-link" href="index.php?controller=admin&action=form"><i class="bi bi-person-badge-fill"></i> Register</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="index.php?controller=auth&action=auth"><i class="bi bi-box-arrow-right"></i> Logout</a>
                     </li>

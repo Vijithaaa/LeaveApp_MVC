@@ -99,53 +99,47 @@ class employeeModel extends Database
 
 
 
-    public function UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id)
+    public function UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id,$reqested_date)
     {
-        $stmt = $this->pdo->prepare("UPDATE leave_application 
-                        SET leave_type_id = :leave_type_id, 
-                            leave_start_date = :start_date, 
-                            leave_end_date = :end_date,
-                            reqested_date = CURRENT_TIMESTAMP
-                        WHERE application_id = :appId 
-                        AND employee_id = :empId
-                        AND status = 'pending'");
 
-        $stmt->bindParam(':empId', $empId);
-        $stmt->bindParam(':appId', $application_id);
-        $stmt->bindParam(':leave_type_id', $leave_type_id);
-        $stmt->bindParam(':start_date', $start_date);
-        $stmt->bindParam(':end_date', $end_date);
+        $querydata =  [
+            'table_name'=>"leave_application",
+            'data'=>[
+                'leave_type_id'=>$leave_type_id,
+                'leave_start_date'=>$start_date,
+                'leave_end_date'=>$end_date,
+                'reqested_date'=>$reqested_date
 
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                return (['status' => 'success', 'msg' => true]);
-            } else {
-                return (['status' => 'error', 'msg' => 'No matching pending record found to update']);
-            }
-        }
+            ],
+            'condition'=>[
+                'application_id'=>$application_id,
+                'employee_id'=>$empId
+
+            ]
+        ];
+
+        $data = $this->update($querydata);
+        return $data;
+
     }
 
 
 
     public function InsertLeaveData($empId, $leave_type_id, $start_date, $end_date)
-
     {
-        $stmt = $this->pdo->prepare("INSERT INTO leave_application(employee_id, leave_type_id, leave_start_date, leave_end_date)
-                              VALUES
-                              (:employee_id,:leave_type_id,:leave_start_date,:leave_end_date)
-                              ");
-        $stmt->bindParam(':employee_id', $empId);
-        $stmt->bindParam(':leave_type_id', $leave_type_id);
-        $stmt->bindParam(':leave_start_date', $start_date);
-        $stmt->bindParam(':leave_end_date', $end_date);
-        // $stmt->execute();
-        // print_r(json_encode($result));
-        // $lastInsertId = $this->pdo->lastInsertId();
-        if ($stmt->execute()) {
-            return (['status' => 'success', 'msg' => true]);
-        } else {
-            return (['status' => 'error', 'msg' => 'no leave record in db']);
-        }
+         $querydata = [
+            'table_name'=>"leave_application",
+            'data'=>[
+                'employee_id'=>$empId,
+                'leave_type_id'=>$leave_type_id,
+                'leave_start_date'=>$start_date,
+                'leave_end_date'=>$end_date
+            ]
+        ];
+
+        $data = $this->insert($querydata,$returnId=false);
+        return $data;
+
     }
 
     // ----------------------------------------------------------------------------------------
@@ -170,20 +164,22 @@ class employeeModel extends Database
     }
 
 
-        public function deleteApplication($empId, $application_id)
+        public function deleteApplication($empId, $application_id,$status)
     {
 
-        $stmt = $this->pdo->prepare("DELETE FROM leave_application 
-                                where application_id = :application_id 
-                                AND employee_id = :empId
-                                AND status = 'pending'");
-        $stmt->bindParam(':empId', $empId);
-        $stmt->bindParam(':application_id', $application_id);
-        if ($stmt->execute()) {
-            return (['status' => 'success', 'msg' => true]);
-        } else {
-            return (['status' => 'error', 'msg' => 'no record in db']);
-        }
+         $querydata = [
+            'table_name' => "leave_application",
+            'condition' => [
+                'application_id'=>$application_id,
+                'employee_id'=>$empId,
+                'status'=>$status
+            ]
+        ];
+        $data =  $this->delete($querydata,$multiple=true);
+        return $data;
+
+    
     }
+        
 
 }

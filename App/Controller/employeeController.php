@@ -114,8 +114,8 @@ class employeeController
 
         if ($application_id !== null) {
             $SelectLeaveFormData = $this->model->SelectLeaveFormData($empId, $application_id);
-        // print_r($SelectLeaveFormData);
-            
+            // print_r($SelectLeaveFormData);
+
             if ($SelectLeaveFormData) {
                 $leave_type_id = $SelectLeaveFormData['msg']['leave_type_id'];
                 $start_date = $SelectLeaveFormData['msg']['leave_start_date'];
@@ -165,7 +165,8 @@ class employeeController
             } else {
                 // Edit
                 if ($application_id) {
-                    $UpdateLeaveData = $this->model->UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id);
+                    $reqested_date = "CURRENT_TIMESTAMP";
+                    $UpdateLeaveData = $this->model->UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id, $reqested_date);
                     if ($UpdateLeaveData) {
 
                         return $this->leavehistory();
@@ -261,13 +262,13 @@ class employeeController
 
     public function deleteRow($reqdata = 'null')
     {
-
+        $status = "pending";
 
         if (isset($reqdata['application_id'])) {
             $application_id = $reqdata['application_id'] ?? null;
         }
         $empId = $_SESSION['EMP']['empId'];
-        $deleteRow = $this->model->deleteApplication($empId, $application_id);
+        $deleteRow = $this->model->deleteApplication($empId, $application_id, $status);
 
         if ($deleteRow) {
             return $this->leavehistory();

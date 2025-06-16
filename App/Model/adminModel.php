@@ -94,27 +94,6 @@ class adminModel extends Database
         $data = $this->update($querydata);
         return $data;
 
-        // $stmt = $this->pdo->prepare("UPDATE leave_application 
-        //                 SET 
-        //                 status =:status,
-        //                 response_date =:resdate, 
-        //                 WHERE 
-        //                 application_id = :appId");
-        // $stmt->bindParam(':status', $status);
-        // $stmt->bindParam(':appId', $application_id);
-        // $stmt->bindParam(':appId', $response_date);
-
-        // if ($stmt->execute()) {
-        //     // Check if any rows were actually affected
-        //     if ($stmt->rowCount() > 0) {
-        //         return (['status' => 'success', 'msg' => 'Application updated successfully']);
-        //     } else {
-        //         return (['status' => 'error', 'msg' => 'No application found with that ID']);
-        //     }
-        // } else {
-        //     return (['status' => 'error', 'msg' => 'Database update failed']);
-        // }
-
     }
 
 
@@ -131,16 +110,6 @@ class adminModel extends Database
         $data =  $this->select($querydata, $multiple = false);
         return $data;
 
-        // $stmt = $this->pdo->prepare("SELECT * from leave_application where application_id=:application_id");
-        // $stmt->bindParam(':application_id', $application_id);
-        // if ($stmt->execute() && $stmt->rowCount() > 0) {
-        //     $value = $stmt->fetch(PDO::FETCH_ASSOC);
-        //     if ($value) {
-        //         return (['status' => 'success', 'msg' => $value]);
-        //     }
-        // } else {
-        //     return (['status' => 'error', 'msg' => 'no application details in db']);
-        // }
     }
 
 
