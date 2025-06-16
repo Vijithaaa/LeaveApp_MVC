@@ -52,13 +52,11 @@ function getEmployeeProfileHtml($empImagePath = null, $baseImagePath = '/new/lea
 {
     $html = '<div class="employee-profile">';
 
-    // Handle image display
     if (!empty($empImagePath)) {
         $imageFile = basename($empImagePath);
         $fullImagePath = $baseImagePath . $imageFile;
         $html .= '<img src="' . htmlspecialchars($fullImagePath) . '" alt="Employee Photo" class="profile-photo">';
     }
-
     $html .= '</div>';
 
     return $html;

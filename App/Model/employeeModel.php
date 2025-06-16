@@ -20,7 +20,7 @@ class employeeModel extends Database
             ]
         ];
    
-        $data =  $this->select($querydata,$multiple=false);
+        $data =  $this->select_queryfun($querydata,$multiple=false);
 
         return $data;
 
@@ -39,7 +39,7 @@ class employeeModel extends Database
             ]
         ];
    
-        $data =  $this->select($querydata,$multiple=false);
+        $data =  $this->select_queryfun($querydata,$multiple=false);
 
         return $data;
 
@@ -53,7 +53,7 @@ class employeeModel extends Database
             'table_name' => "leave_types",
             'condition' => []
         ];
-        $data =  $this->select($querydata,$multiple=true);
+        $data =  $this->select_queryfun($querydata,$multiple=true);
         return $data;
 
     }
@@ -67,7 +67,7 @@ class employeeModel extends Database
                 'employee_id'=>$empId
             ]
         ];
-        $data =  $this->select($querydata,$multiple=true);
+        $data =  $this->select_queryfun($querydata,$multiple=true);
         return $data;
 
 
@@ -92,7 +92,7 @@ class employeeModel extends Database
 
             ]
         ];
-        $data =  $this->select($querydata,$multiple=false);
+        $data =  $this->select_queryfun($querydata,$multiple=false);
         return $data;
 
     }
@@ -118,7 +118,7 @@ class employeeModel extends Database
             ]
         ];
 
-        $data = $this->update($querydata);
+        $data = $this->update_queryfun($querydata);
         return $data;
 
     }
@@ -137,7 +137,7 @@ class employeeModel extends Database
             ]
         ];
 
-        $data = $this->insert($querydata,$returnId=false);
+        $data = $this->insert_queryfun($querydata,$returnId=false);
         return $data;
 
     }
@@ -158,7 +158,7 @@ class employeeModel extends Database
 
             ]
         ];
-        $data =  $this->select($querydata,$multiple=true);
+        $data =  $this->select_queryfun($querydata,$multiple=true);
         return $data;
 
     
@@ -176,7 +176,7 @@ class employeeModel extends Database
                 'status'=>$status
             ]
         ];
-        $data =  $this->delete($querydata,$multiple=true);
+        $data =  $this->delete_queryfun($querydata,$multiple=true);
         return $data;
 
     

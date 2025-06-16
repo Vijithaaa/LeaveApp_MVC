@@ -18,7 +18,7 @@ class adminModel extends Database
             'table_name' => "role_detail",
             'condition' => []
         ];
-        $data =  $this->select($querydata, $multiple = true);
+        $data =  $this->select_queryfun($querydata, $multiple = true);
         return $data;
     }
     public function InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath)
@@ -37,7 +37,7 @@ class adminModel extends Database
             
         ];
 
-        $data = $this->insert($querydata,$returnId=true);
+        $data = $this->insert_queryfun($querydata,$returnId=true);
         // print_r($data);
         return $data;
 
@@ -58,7 +58,7 @@ class adminModel extends Database
                 'status' => $status
             ]
         ];
-        $data =  $this->select($querydata, $multiple = true);
+        $data =  $this->select_queryfun($querydata, $multiple = true);
         return $data;
 
         
@@ -74,7 +74,7 @@ class adminModel extends Database
             'table_name' => "employee_detail",
             'condition' => []
         ];
-        $data =  $this->select($querydata, $multiple = true);
+        $data =  $this->select_queryfun($querydata, $multiple = true);
         return $data;
    
     }
@@ -92,7 +92,7 @@ class adminModel extends Database
             ]
         ];
 
-        $data = $this->update($querydata);
+        $data = $this->update_queryfun($querydata);
         return $data;
 
     }
@@ -108,7 +108,7 @@ class adminModel extends Database
                 'application_id' => $application_id
             ]
         ];
-        $data =  $this->select($querydata, $multiple = false);
+        $data =  $this->select_queryfun($querydata, $multiple = false);
         return $data;
 
     }
@@ -126,7 +126,7 @@ class adminModel extends Database
             ]
         ];
 
-        $data = $this->insert($querydata,$returnId=false);
+        $data = $this->insert_queryfun($querydata,$returnId=false);
         return $data;
 
 

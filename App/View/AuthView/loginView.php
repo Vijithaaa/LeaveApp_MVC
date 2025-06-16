@@ -20,8 +20,7 @@
             <h2 class="login-title"><?= $data['page_title'] ?></h2>
             <div class="loginform">
                 <?= displayAlertMessages() ?>
-
-                <form method="post" action="index.php?controller=auth&action=submitform&type=<?php echo $data["login_type"]; ?>">
+                <form method="post" action="index.php?controller=Authentication&action=submitform_emp_admin&type=<?php echo $data["login_type"]; ?>">
                     <div class="form-group">
                         <label>Username:</label>
                         <input type="text" name="username" required>
@@ -33,7 +32,8 @@
                     </div>
 
                     <div class="form-group button-container">
-                        <a href="index.php?controller=auth&action=auth" class="my-custom-button" style="text-decoration:none;">Back</a>
+                        <a href="index.php?controller=authentication&action=homepage" class="my-custom-button" style="text-decoration:none;">Back</a>
+                        
                         <button type="submit" class="my-custom-button" name="login">Login</button>
                     </div>
                 </form>

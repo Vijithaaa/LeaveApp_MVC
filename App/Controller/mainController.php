@@ -1,13 +1,13 @@
 <?php
 
-class mainController
+class MainController
 {
     public function __construct($controller, $action)
     {
 
-        $controller = $controller . 'Controller';
+        $controller = ucfirst($controller) . 'Controller';
+        
         if (file_exists("./App/Controller/$controller.php")) {
-            // print "./App/Controller/$controller.php";
             require_once "./App/Controller/$controller.php";
 
             if (class_exists($controller)) {

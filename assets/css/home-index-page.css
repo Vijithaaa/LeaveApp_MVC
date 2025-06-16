@@ -39,3 +39,35 @@
     padding: 40px;
 
 } */
+
+
+     .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: transparent;
+            box-shadow: 1px 2px 5px 1px;
+        }
+
+        .card-header {
+            font-weight: bold;
+            background-image: linear-gradient(to right, #131d4f 40%, white 100%);
+
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+        }
+
+        .highlight {
+
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        h4 {
+            margin-bottom: 30px;
+            margin-top: 30px;
+
+            text-align: center;
+            color: #041a3c;
+        }

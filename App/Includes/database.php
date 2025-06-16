@@ -19,16 +19,14 @@ class Database
 
 
 
-    public function select($querydata, $multiple = false)
+    public function select_queryfun($querydata, $multiple = false)
     {
         $columns = is_array($querydata['column_name']) ? implode(", ", $querydata['column_name']) : $querydata['column_name'];
-        // $columns = $querydata['column_name'];
       
         $table = $querydata['table_name'];
         $conditions = $querydata['condition']; 
         
         $orderby = isset($querydata['orderby']) ? $querydata['orderby'] : null;
-        // $orderby = $querydata['orderby'];
 
 
         $whereSql = '';
@@ -68,14 +66,9 @@ class Database
 
 
 
-    
 
 
-
-
-
-
-    public function insert($querydata, $returnId = false)
+    public function insert_queryfun($querydata, $returnId = false)
     {
         $table = $querydata['table_name'];
         $data = $querydata['data'];
@@ -110,7 +103,7 @@ class Database
     }
 
 
-    public function update($querydata)
+    public function update_queryfun($querydata)
     {
         $table = $querydata['table_name'];
         $data = $querydata['data'];
@@ -132,7 +125,6 @@ class Database
                 $whereParts[] = "$key = :$param";
                 $condParams[$param] = $value;
             }
-            // $whereClause = implode(" AND ", $whereParts);
             $whereClause = " WHERE " . implode(" AND ", $whereParts);
         }
 
@@ -165,15 +157,13 @@ class Database
 
 
 
-    public function delete($querydata)
+    public function delete_queryfun($querydata)
     {
 
-        // $columns = $querydata['column_name'];
         $table = $querydata['table_name'];
         $conditions = $querydata['condition'];
 
 
-        // Build WHERE clause only if conditions exist
         $whereSql = '';
         if (!empty($conditions)) {
             $whereClauses = [];
@@ -183,10 +173,8 @@ class Database
             $whereSql = " WHERE " . implode(" AND ", $whereClauses);
         }
 
-        // Final SQL query
         $sql = "DELETE FROM $table $whereSql ";
 
-        // Prepare and bind
         $stmt = $this->pdo->prepare($sql);
         if (!empty($conditions)) {
             foreach ($conditions as $key => $value) {

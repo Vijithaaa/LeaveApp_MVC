@@ -1,16 +1,17 @@
 <?php
-require_once __DIR__ . '/../Model/employeeModel.php';
+require_once './App/Model/EmployeeModel.php';
 
-class employeeController
+// this class show list of leaves taken,insert & edit & leave by the employee
+class EmployeeController
 {
     public $model;
     public function __construct()
     {
-        $this->model = new employeeModel();
+        $this->model = new EmployeeModel();
     }
 
-
-    public function leavetypesCommon($reqdata = 'null')
+// get types of leave through database 
+    public function getAll_leaveTypes($reqdata = 'null')
     {
         $LeaveTypes = [];
         $LeaveTypeIdName = [];
@@ -25,23 +26,23 @@ class employeeController
         return $LeaveTypes;
     }
 
-
-    public function leavetrack($reqdata = 'null')
+// tracking leaves of the employee
+    public function emp_leavetrack($reqdata = 'null')
     {
 
-        // Employee data
+        // fetch Employee data
         $empName = ucfirst($_SESSION['EMP']['empName']);
 
         $empId = $_SESSION['EMP']['empId'];
 
-        // // Get role information
+        // Get role information
         $SelectRoleId = $this->model->SelectRoleId($empId);
         $roleId = $SelectRoleId['msg']['role_id'];
+
         $SelectRoleName = $this->model->fetchRoleName($roleId);
-        // print_r($SelectRoleName);
         $roleName = ucfirst($SelectRoleName['msg']['role_name']);
 
-        $LeaveTypes = $this->leavetypesCommon();   //getAllLeaveTypes
+        $LeaveTypes = $this->getAll_leaveTypes();   //through getAll_leaveTypes fun()
 
         $leave = [];
         $total_leave = 0;
@@ -74,7 +75,6 @@ class employeeController
             $userData['fetchLeaveTaken'][$key]['leave_type'] = $userData['leaveType'][$value['leave_type_id']] ?? null;
         }
 
-        // // Add extra content for navbar
         $navbarExtraContent = "<span class='me-3 text-primary'>" . htmlspecialchars($userData['roleName']) . "</span>";
 
         $arr = [
@@ -88,12 +88,13 @@ class employeeController
         // }
     }
 
-    //======================================================================================================================//
-    //action = leaveform
+    //======================================================================================================================
+   
+   
+    //showleaveform  -> insert and update  leave based on appliction_id
 
     public  function showleaveform($reqdata = 'null')
     {
-    // Initialize to avoid undefined variable warnings
     $application_id = null;
     $leave_type_id = null;
     $start_date = null;
@@ -103,15 +104,12 @@ class employeeController
             $application_id = $reqdata['application_id'] ?? null;
         }
 
-        $leaveType = $this->leavetypesCommon();
+        $leaveType = $this->getAll_leaveTypes();
 
-        // $empName = ucfirst($_SESSION['EMP']['empName']);
         $empId = $_SESSION['EMP']['empId'];
-        // $application_id = $_POST['application_id'] ?? $_POST['application_id'] ?? null;
 
         if ($application_id !== null) {
             $SelectLeaveFormData = $this->model->SelectLeaveFormData($empId, $application_id);
-            // print_r($SelectLeaveFormData);
 
             if ($SelectLeaveFormData) {
                 $leave_type_id = $SelectLeaveFormData['msg']['leave_type_id'];
@@ -134,6 +132,7 @@ class employeeController
     }
 
 
+    //submitform  -> insert or update  leave based on appliction_id
     public function submitform($reqdata = 'null')
     {
         $application_id = $reqdata['application_id'] ?? null;
@@ -143,12 +142,10 @@ class employeeController
 
         if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
-            // $leaveType = $this->leavetypesCommon();
 
             $leave_type_id = $reqdata['leave_type_id'];
             $start_date = $reqdata['start_date'];
             $end_date = $reqdata['end_date'];
-            // $application_id = $_POST['application_id'] ?? null;
 
             $today = date('Y-m-d');
             if ($start_date < $today) {
@@ -160,7 +157,7 @@ class employeeController
                 setcookie('errorMsg', $errorMsg, time() + 2);
                 header("Location: index.php?controller=employee&action=showleaveform");
             } else {
-                // Edit
+                // if application_id get means update the leave
                 if ($application_id) {
                     $reqested_date = date('Y-m-d H:i:s');
                     $UpdateLeaveData = $this->model->UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id, $reqested_date);
@@ -173,11 +170,10 @@ class employeeController
                 }
 
 
-                // Insert
+                // Insert to leave application
                 else {
                     $InsertLeaveData = $this->model->InsertLeaveData($empId, $leave_type_id, $start_date, $end_date);
                     if (isset($InsertLeaveData['status']) && $InsertLeaveData['status'] === 'success') {
-                        // echo "Hello";
                         return $this->leavehistory();
                     } else {
                         $errorMsg = "Insert failed!";
@@ -193,8 +189,8 @@ class employeeController
 
     //=====================--------------------------------------================================================-----------------
 
-    // history page
 
+    // history page->show leave application history of the employee 
     public function leavehistory($reqdata = 'null')
     {
 
@@ -213,7 +209,7 @@ class employeeController
 
         if (isset($SelectApplication)) {
 
-            $leaveType = $this->leavetypesCommon();
+            $leaveType = $this->getAll_leaveTypes();
             $leaveIdName = [];
 
             if (isset($leaveType['leaveIdName']) && is_array($leaveType['leaveIdName'])) {
@@ -254,7 +250,7 @@ class employeeController
 
 
 
-
+// delete a row of employee data  only when status=="pending"
     public function deleteRow($reqdata = 'null')
     {
         $status = "pending";

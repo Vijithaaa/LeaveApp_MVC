@@ -1,26 +1,21 @@
 <?php
-require_once __DIR__ . '/../Model/adminModel.php';
 
-require_once __DIR__ . '/employeeController.php';
+require_once './App/Model/AdminModel.php';
 
+require_once __DIR__ . '/EmployeeController.php';
 
-
-
-// require_once __DIR__.'/../View/AdminView/approveView.php';
-
-class adminController
+//register new employee and give response for leave request
+class AdminController
 {
     public $model;
     public $emp;
     public function __construct()
     {
-        $this->model = new adminModel();
-        // $this->emp = new employeeModel();
+        $this->model = new AdminModel();
     }
 
 
 
-    // -----------------------------------------------------------------------------------------------
 
     public function form($reqdata = 'null')
     {
@@ -96,7 +91,6 @@ class adminController
 
 
             $insert = $this->model->InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath);
-            // echo "<pre>"; print_r($insert); echo "</pre>";
 
             if (isset($insert['status']) && $insert['status'] === 'success') {
                 $successMsg = "Data inserted successfully";
@@ -160,7 +154,7 @@ class adminController
 
             // Get leave types and employee names
             $leaveTypeData = new employeeController();
-            $leaveType = $leaveTypeData->leavetypesCommon();
+            $leaveType = $leaveTypeData->getAll_leaveTypes();
 
             $leaveIdName = $leaveType['leaveIdName'];
 

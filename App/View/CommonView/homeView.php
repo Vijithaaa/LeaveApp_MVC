@@ -12,47 +12,14 @@
     <link rel="stylesheet" href="assets/css/employee-navbar.css">
 
     <title>home</title>
-    <style>
-        .card {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border: none;
-            background-color: transparent;
-            box-shadow: 1px 2px 5px 1px;
-        }
-
-        .card-header {
-            font-weight: bold;
-            background-image: linear-gradient(to right, #131d4f 40%, white 100%);
-
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-        }
-
-        .highlight {
-
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-
-        h4 {
-            margin-bottom: 30px;
-            margin-top: 30px;
-
-            text-align: center;
-            color: #041a3c;
-        }
-    </style>
+   
     
 </head>
 
 <body>
 
 
-    <!-- <nav class="navbar bg-body-tertiary custom-navbar"> -->
     <nav class="navbar custom-navbar">
-        <!-- <nav class="nav-wrapper custom-navbar"> -->
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="assets/images/common/infiniti_logo.png" alt="Logo" style="width:80px;" class="rounded-pill me-3">
@@ -61,12 +28,12 @@
             <div class="d-flex">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="index.php?controller=auth&amp;action=form&amp;type=employee">
+                        <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=employee">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=auth&amp;action=form&amp;type=admin">
+                        <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=admin">
                             <i class="bi bi-person-circle"></i> Admin
                         </a>
                     </li>
@@ -175,8 +142,6 @@
 <footer class="app-footer">
   <div class="footer-content">
     <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
-    <!-- <p>A simple footer for your application</p> -->
-     
   </div>
 </footer>
 

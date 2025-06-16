@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- fontawesome -->
-  <script src="https://kit.fontawesome.com/272114282e.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/272114282e.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -36,14 +36,13 @@
                         <a class="nav-link" href="index.php?controller=admin&action=form"><i class="bi bi-person-badge-fill"></i> Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="index.php?controller=auth&action=auth"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                        <a class="nav-link text-danger" href="index.php?controller=Authentication&action=homepage"><i class="bi bi-box-arrow-right"></i> Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="blank"></div>
 
     <div class="container-approve">
         <div class="container py-4">
@@ -54,15 +53,12 @@
                 <table class="table table">
                     <thead class="table-info">
                         <tr>
-                            <!-- <th>Application ID</th> -->
                             <th>Employee Name</th>
                             <th>Leave Type </th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Days</th>
                             <th>Requested Date</th>
-                            <!-- <th>Response Date</th> -->
-                            <th>Status</th>
                             <th>Action</th>
 
                         </tr>
@@ -80,9 +76,7 @@
 
                                 <td><?= formatDateTime($app['reqested_date']) ?></td>
 
-                                <td class="status-<?= $app['status'] ?>">
-                                    <?= ucfirst(htmlspecialchars($app['status'])) ?>
-                                </td>
+                               
 
                                 <td class="text-center">
                                     <?php if ($app['status'] == 'pending'): ?>

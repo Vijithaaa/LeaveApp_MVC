@@ -1,9 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../Includes/database.php';
-// require_once __DIR__ . '/../Model/authModel.php';
-
-class authModel extends Database
+    
+class AuthenticationModel extends Database
 {
     
     public function __construct()
@@ -23,7 +22,7 @@ class authModel extends Database
             ]
         ];
 
-        $data =  $this->select($querydata,$multiple=false);
+        $data =  $this->select_queryfun($querydata,$multiple=false);
         return $data;
 
     }
@@ -42,7 +41,7 @@ class authModel extends Database
         ];
         // print_r($querydata);
 
-        $data =  $this->select($querydata,$multiple=false);
+        $data =  $this->select_queryfun($querydata,$multiple=false);
 
         return $data;
         

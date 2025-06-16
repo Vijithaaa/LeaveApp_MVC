@@ -49,7 +49,7 @@ if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMP']['emp_logged_in'
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link text-dark" href="index.php?controller=employee&action=leavetrack"><i class="bi bi-activity"></i> Leave Tracking</a>
+            <a class="nav-link text-dark" href="index.php?controller=employee&action=emp_leavetrack"><i class="bi bi-activity"></i> Leave Tracking</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="index.php?controller=employee&action=showleaveform"><i class="bi bi-pencil-square"></i> Leave Application</a>
@@ -58,7 +58,7 @@ if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMP']['emp_logged_in'
             <a class="nav-link text-dark" href="index.php?controller=employee&action=leavehistory"><i class="bi bi-chat-right-dots-fill"></i> Leave History</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-danger" href="index.php?controller=auth&action=logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            <a class="nav-link text-danger" href="index.php?controller=Authentication&action=logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
           </li>
         </ul>
       </div>

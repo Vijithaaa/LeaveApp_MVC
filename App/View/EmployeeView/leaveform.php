@@ -24,9 +24,9 @@ include './App/View/CommonView/navbar.php';
     <div class="container-image">
         <img src="assets/images/common/form-3.jpg" alt="bg">
 
-        <?= displayAlertMessages() ?>
-
+        
         <div class="leaveform">
+            <?= displayAlertMessages() ?>
             <form id="formId" action="index.php?controller=employee&action=submitform" method="post">
                 <h3 class="form-heading">
                     <?= isset($data['application_id']) ? 'Update Your Leave' : 'Apply for Leave' ?>
