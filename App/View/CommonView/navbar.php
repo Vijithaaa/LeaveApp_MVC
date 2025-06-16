@@ -1,8 +1,6 @@
 <?php
-// include './App/Includes/helperfunction.php';
 
-// session_start();
-
+//employee's navbar
 if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMP']['emp_logged_in']  == true) {
 
     $empName = ucfirst($_SESSION['EMP']['empName']);
@@ -29,7 +27,7 @@ if (isset($_SESSION['EMP']['emp_logged_in']) || $_SESSION['EMP']['emp_logged_in'
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto"> <!-- Aligns to right -->
+      <ul class="navbar-nav ms-auto"> 
         <li class="nav-item">
                     <a class="nav-link text-dark" href="index.php?controller=employee&action=leavetrack"><i class="bi bi-activity"></i> Leave Tracking</a>
         </li>

@@ -90,14 +90,14 @@
                                 <td class="text-center">
                                     <?php if ($app['status'] == 'pending'): ?>
 
-                                        <form class="actions" method="post" style="display:inline;">
+                                        <form class="actions" action="index.php?controller=admin&action=status" method="post" style="display:inline;">
                                             <input type="hidden" name="application_id" value="<?= $app['application_id'] ?>">
                                             <input type="hidden" name="actions" value="approved">
                                             <button type="submit" class="text-action approve">
                                                 <i class="bi bi-check2-square"></i> Approve
                                             </button>
                                         </form>
-                                        <form class="actions" method="post" style="display:inline;">
+                                        <form class="actions" action="index.php?controller=admin&action=status" method="post" style="display:inline;">
                                             <input type="hidden" name="application_id" value="<?= $app['application_id'] ?>">
                                             <input type="hidden" name="actions" value="rejected">
                                             <button type="submit" class="text-action reject">

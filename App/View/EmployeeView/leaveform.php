@@ -14,15 +14,9 @@ include './App/View/CommonView/navbar.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/leaveform.css">
-
     <link rel="stylesheet" href="assets/css/employee-navbar.css">
 
-    <style>
-        .blank {
-            background-color: transparent;
-            height: 55px;
-        }
-    </style>
+    
 
 </head>
 
@@ -31,8 +25,7 @@ include './App/View/CommonView/navbar.php';
 
     <div class="container-image">
         <img src="assets/images/common/form-3.jpg" alt="bg">
-        <div class="image-side"></div>
-
+    
         <?= displayAlertMessages() ?>
 
         <div class="leaveform">

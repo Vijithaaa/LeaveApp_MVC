@@ -18,7 +18,9 @@ class mainController
 
                     $response = $controllerobj->$action($_REQUEST);
 
-                    if (is_array($response) && isset($response['path'])) {
+                    // if (is_array($response) && isset($response['path'])) {
+                    if (is_array($response)) {
+
                         $data = $response['data'] ?? null;
 
                         // echo "<pre>"; print_r($data); echo "</pre>";

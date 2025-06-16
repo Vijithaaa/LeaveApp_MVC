@@ -13,7 +13,6 @@ class adminModel extends Database
 
     public function SelectRoleName()
     {
-
         $querydata = [
             'column_name' => "*",
             'table_name' => "role_detail",
@@ -35,6 +34,7 @@ class adminModel extends Database
                 'role_id'=>$empRoleId,
                 'employee_image'=>$photoPath
             ]
+            
         ];
 
         $data = $this->insert($querydata,$returnId=true);

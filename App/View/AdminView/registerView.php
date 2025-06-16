@@ -73,10 +73,10 @@
                         <button type="submit" class="my-custom-button" name="register_employee_details"
                             onclick="return confirm('Are you sure you want to register this employee Detailss?');">Register</button>
 
-                        <a href="index.php?controller=auth&action=adminpage" class="my-custom-button" style="text-decoration:none;">Back</a>
+                        <!-- <a href="index.php?controller=auth&action=adminpage" class="my-custom-button" style="text-decoration:none;">Back</a> -->
+                        <a href="index.php?controller=admin&action=approve" class="my-custom-button" style="text-decoration:none;">Back</a>
+                    
                     </div>
-
-
                 </form>
             </div>
         </div>

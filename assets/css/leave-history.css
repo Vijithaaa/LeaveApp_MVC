@@ -85,3 +85,9 @@
   text-align: center;
 }
 
+
+  .blank {
+            background-color: transparent;
+            height: 55px;
+        }
+

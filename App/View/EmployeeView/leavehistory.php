@@ -22,15 +22,11 @@ include './App/View/CommonView/navbar.php';
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/leave-history.css">
-    
     <link rel="stylesheet" href="assets/css/employee-navbar.css">
 
     <title>Leave History</title>
     <style>
-        .blank {
-            background-color: transparent;
-            height: 55px;
-        }
+      
     </style>
 </head>
 

@@ -19,7 +19,7 @@ class authController
         return $arr;
     }
 
-    public function form($reqdata='null')
+    public function form($reqdata = 'null')
     {
 
         // Determine login type (admin or employee)
@@ -30,12 +30,15 @@ class authController
 
         $arr = [
             'data' => ['login_type' => $login_type, 'page_title' => $page_title],
+            // 'path' => 'View/AuthView/loginView.php'
             'path' => 'View/AuthView/loginView.php'
+
         ];
+        
         return $arr;
     }
 
-    public function  submitform($reqdata='null')
+    public function  submitform($reqdata = 'null')
     {
 
         // Common variables
@@ -58,16 +61,21 @@ class authController
                 $userData = $this->model->adminAuth($username, $password);
 
 
-                if ($userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username 
-                                                            && $userData['msg']['pass'] == $password) {
-                    // session_start();
-                    // $_SESSION['admin_logged_in'] = true;
+                if (
+                    $userData &&  $userData['msg'] != false && $userData['msg']['name'] === $username
+                    && $userData['msg']['pass'] == $password
+                ) {
+                    
                     $_SESSION['ADMIN'] = [
                         'admin_logged_in' => true
                     ];
 
-                    $arr = ['path' => 'View/CommonView/adminHomeView.php'];
-                    return $arr;
+                    include 'adminController.php';
+                    $obj = new adminController();
+                    return $obj->approve();
+
+
+
                 } else {
                     $errorMsg = "Invalid admin credentials";
 
@@ -78,8 +86,10 @@ class authController
 
                 $userData = $this->model->empAuthenticate($username, $password);
 
-                if ($userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username 
-                                                           && $userData['msg']['employee_id'] == $password) {
+                if (
+                    $userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username
+                    && $userData['msg']['employee_id'] == $password
+                ) {
                     // session_start();
                     $_SESSION['EMP'] = [
                         'empId' => $userData['msg']['employee_id'],
@@ -90,7 +100,7 @@ class authController
                     ];
                     session_regenerate_id(true); // Destroys old session
 
-                    
+
 
                     include 'employeeController.php';
                     $obj = new employeeController();
@@ -98,7 +108,7 @@ class authController
 
                     // return $arr;
                 } else {
-                                                            // echo "muruga";
+                    // echo "muruga";
 
                     $errorMsg = "Invalid employee credentials";
                     setcookie('errorMsg', $errorMsg, time() + 2);
@@ -108,7 +118,7 @@ class authController
         }
     }
 
-    public function logout($reqdata='null')
+    public function logout($reqdata = 'null')
     {
         // session_start();
         session_unset();
@@ -121,7 +131,7 @@ class authController
 
 
 
-    public function adminpage($reqdata='null')
+    public function adminpage($reqdata = 'null')
     {
         $arr = ['path' => 'View/CommonView/adminHomeView.php'];
         return $arr;

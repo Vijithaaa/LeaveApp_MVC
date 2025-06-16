@@ -27,7 +27,6 @@ class Database
 
         $columns = is_array($querydata['column_name']) ? implode(", ", $querydata['column_name']) : $querydata['column_name'];
 
-        // Build WHERE clause only if conditions exist
         $whereSql = '';
         if (!empty($conditions)) {
             $whereClauses = [];
@@ -37,10 +36,8 @@ class Database
             $whereSql = ' WHERE ' . implode(" AND ", $whereClauses);
         }
 
-        // Final SQL query
         $sql = "SELECT $columns FROM $table" . $whereSql;
 
-        // Prepare and bind
         $stmt = $this->pdo->prepare($sql);
         if (!empty($conditions)) {
             foreach ($conditions as $key => $value) {
@@ -95,19 +92,16 @@ class Database
 
     public function update($querydata)
     {
-        // Extract parameters
         $table = $querydata['table_name'];
         $data = $querydata['data'];
         $condition = $querydata['condition'];
 
-        // Build SET clause
         $setParts = [];
         foreach ($data as $key => $value) {
             $setParts[] = "$key = :$key";
         }
         $setClause = implode(", ", $setParts);
 
-        // Build WHERE clause
         $whereClause = "";
         $condParams = [];
 
@@ -118,25 +112,23 @@ class Database
                 $whereParts[] = "$key = :$param";
                 $condParams[$param] = $value;
             }
-            $whereClause = implode(" AND ", $whereParts);
-            // $whereClause = " WHERE " . implode(" AND ", $whereParts);
+            // $whereClause = implode(" AND ", $whereParts);
+            $whereClause = " WHERE " . implode(" AND ", $whereParts);
         }
 
-        // Prepare and execute query
-        $sql = "UPDATE $table SET $setClause WHERE $whereClause";
+        $sql = "UPDATE $table SET $setClause $whereClause";
+        // print_r($sql);
+        
         $stmt = $this->pdo->prepare($sql);
 
-        // Bind SET values
         foreach ($data as $key => $val) {
             $stmt->bindValue(":$key", $val);
         }
 
-        // Bind WHERE values
         foreach ($condParams as $key => $val) {
             $stmt->bindValue(":$key", $val);
         }
 
-        // Execute and return result
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
@@ -153,7 +145,8 @@ class Database
 
 
 
-    public function delete($querydata){
+    public function delete($querydata)
+    {
 
         // $columns = $querydata['column_name'];
         $table = $querydata['table_name'];
@@ -167,11 +160,11 @@ class Database
             foreach ($conditions as $key => $value) {
                 $whereClauses[] = "$key = :$key";
             }
-            $whereSql =implode(" AND ", $whereClauses);
+            $whereSql = " WHERE " . implode(" AND ", $whereClauses);
         }
 
         // Final SQL query
-        $sql = "DELETE FROM $table WHERE $whereSql ";
+        $sql = "DELETE FROM $table $whereSql ";
 
         // Prepare and bind
         $stmt = $this->pdo->prepare($sql);
@@ -188,10 +181,5 @@ class Database
         } else {
             return ['status' => 'error', 'msg' => false];
         }
-
-
-
-
     }
-
 }

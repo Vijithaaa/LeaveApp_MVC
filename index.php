@@ -14,4 +14,5 @@ $action = $_GET['action'] ?? 'auth';
 
 
 // call_user_func([new $mainController, $action]);
+
 new mainController($controller, $action);

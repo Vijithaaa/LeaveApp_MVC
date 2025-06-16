@@ -26,7 +26,6 @@ class employeeController
         }
         $LeaveTypes['original'] = $storeLeaveTypes;
         $LeaveTypes['leaveIdName'] = $LeaveTypeIdName;
-
         return $LeaveTypes;
     }
 
@@ -101,6 +100,11 @@ class employeeController
 
     public  function showleaveform($reqdata = 'null')
     {
+    // Initialize to avoid undefined variable warnings
+    $application_id = null;
+    $leave_type_id = null;
+    $start_date = null;
+    $end_date = null;
 
         if (isset($reqdata['application_id'])) {
             $application_id = $reqdata['application_id'] ?? null;
@@ -165,7 +169,7 @@ class employeeController
             } else {
                 // Edit
                 if ($application_id) {
-                    $reqested_date = "CURRENT_TIMESTAMP";
+                    $reqested_date = date('Y-m-d H:i:s');
                     $UpdateLeaveData = $this->model->UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id, $reqested_date);
                     if ($UpdateLeaveData) {
 
@@ -210,7 +214,7 @@ class employeeController
         $SelectApplication = $this->model->SelectApplication($empId);
         // print_r($SelectApplication);
 
-        if (!empty($SelectApplication)) {
+        if (is_array($SelectApplication) && isset($SelectApplication['msg']) && is_array($SelectApplication['msg'])) {
             $SelectApplication = $SelectApplication['msg'];
         } else {
             $SelectApplication = [];
@@ -219,12 +223,14 @@ class employeeController
         if (isset($SelectApplication)) {
 
             $leaveType = $this->leavetypesCommon();
-            $leaveIdName = $leaveType['leaveIdName'];
-
             $leaveIdName = [];
-            foreach ($leaveType['leaveIdName'] as $id => $name) {
-                $leaveIdName[$id] = $name;
+
+            if (isset($leaveType['leaveIdName']) && is_array($leaveType['leaveIdName'])) {
+                foreach ($leaveType['leaveIdName'] as $id => $name) {
+                    $leaveIdName[$id] = $name;
+                }
             }
+
 
             foreach ($SelectApplication as $app) {
                 $leaveTypeId = $app['leave_type_id'];

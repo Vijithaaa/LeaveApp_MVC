@@ -20,12 +20,12 @@ justify-content: center;
     height: 90vh;
 }
 
-.image-side {
+/* .image-side {
     flex: 1;
     background-image: url('../images/form-3.jpg') ;
     background-size: cover;
     background-position: center;
-}
+} */
 
 .leaveform {
     flex: 1;
@@ -105,3 +105,8 @@ justify-content: center;
     background-color: #0056b3;
     /* transform: translateY(-2px); */
 }
+
+ .blank {
+            background-color: transparent;
+            height: 55px;
+        }
