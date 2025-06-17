@@ -20,8 +20,6 @@ function displayAlertMessages()
 }
 
 
-
-
 //22nd May 25
 function formatDate($dateString)
 {

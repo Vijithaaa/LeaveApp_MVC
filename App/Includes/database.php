@@ -10,6 +10,8 @@ class Database
             $dsn = "mysql:host=" . host . ";dbname=" . dbname . ";port=" . port;
             $this->pdo = new PDO($dsn, user, password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // $this->pdo->exec("SET time_zone = '+05:30'");
+
             // echo "Connection Success!";
         } catch (PDOException $e) {
             die("Not connected: " . password . $e->getMessage());
@@ -63,9 +65,6 @@ class Database
             return ['status' => 'error', 'msg' => false];
         }
     }
-
-
-
 
 
     public function insert_queryfun($querydata, $returnId = false)
@@ -149,11 +148,6 @@ class Database
             return ['status' => "error", 'msg' => "No rows affected"];
         }
     }
-
-
-
-
-
 
 
 

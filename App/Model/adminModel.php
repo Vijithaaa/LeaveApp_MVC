@@ -1,9 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../Includes/database.php';
-// require_once __DIR__ . '/../Model/authModel.php';
 
-class adminModel extends Database
+class AdminModel extends Database
 {
     public function __construct()
     {
@@ -38,7 +37,6 @@ class adminModel extends Database
         ];
 
         $data = $this->insert_queryfun($querydata,$returnId=true);
-        // print_r($data);
         return $data;
 
     }

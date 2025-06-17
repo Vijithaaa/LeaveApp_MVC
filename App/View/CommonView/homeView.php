@@ -21,7 +21,7 @@
 
     <nav class="navbar custom-navbar">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 <img src="assets/images/common/infiniti_logo.png" alt="Logo" style="width:80px;" class="rounded-pill me-3">
             </a>
             <span class="h3">Employee Leave Tracking Management</span>

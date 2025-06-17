@@ -39,7 +39,6 @@ class AuthenticationModel extends Database
                 'employee_id' => $password
             ]
         ];
-        // print_r($querydata);
 
         $data =  $this->select_queryfun($querydata,$multiple=false);
 

@@ -21,7 +21,6 @@ class AdminController
     {
 
         $SelectRoleName = $this->model->SelectRoleName();
-        // print_r($SelectRoleName);
 
 
         $role = [];
@@ -39,7 +38,7 @@ class AdminController
 
 
         $uploadFolder = "assets/images/employees/";
-        $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];  // tandard web-safe image formats
+        $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']; //web safe image formats
         $maxFileSize = 2 * 1024 * 1024; // 2MB
 
 

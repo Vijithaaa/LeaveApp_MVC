@@ -1,6 +1,9 @@
 <?php
-session_name("leavetrack");
+session_name("leavetracking");
 session_start();
+
+
+
 include './App/Includes/helperfunction.php';
 require_once './App/Controller/mainController.php';
 
@@ -11,4 +14,6 @@ $action = $_GET['action'] ?? 'homepage';
 
 // call_user_func([new $mainController, $action]);
 
-new MainController($controller, $action);
+    new MainController($controller, $action);
+
+
