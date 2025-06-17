@@ -1,10 +1,11 @@
 <?php
+
 require_once './App/Model/AuthenticateModel.php';
 
 
 
 // AuthenticationController to authenticate admin or employee
-class AuthenticationController
+class AuthenticateController
 {
     public $model;
     public function __construct()
@@ -25,36 +26,42 @@ class AuthenticationController
     {
 
 
-        $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
+        // $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
 
-        $page_title = ucfirst($login_type) . " Login";
+        // $page_title = ucfirst($login_type) . " Login";
 
         $arr = [
-            'data' => ['login_type' => $login_type, 'page_title' => $page_title],
-            'path' => 'View/AuthView/loginView.php'
+            // 'data' => ['login_type' => $login_type, 'page_title' => $page_title],
+            'path' => 'View/AuthView/Login_View.php'
 
         ];
         return $arr;
     }
 
+
+
+
+
     // submit form either employee or admin based on type
+
     public function  submitform_emp_admin($reqdata = 'null')
     {
 
-        // Common variables
-        $errorMsg = '';
+        if(isset($reqdata['login'])){
+            
+        }
 
 
-        $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
+        // $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
 
 
         if (isset($reqdata['login'])) {
 
-            $username = trim($reqdata['username']);
-            $password = trim($reqdata['password']);
+            $username = $reqdata['username'];
+            $password = $reqdata['password'];
 
 
-            if ($login_type == "admin") {
+            // if ($login_type == "admin") {
 
                 $userData = $this->model->adminAuth($username, $password);
 
@@ -75,12 +82,12 @@ class AuthenticationController
 
 
 
-                } else {
-                    $errorMsg = "Invalid admin credentials";
+                // } else {
+                //     $errorMsg = "Invalid admin credentials";
 
-                    setcookie('errorMsg', $errorMsg, time() + 2);
-                    header("Location: index.php?controller=authentication&action=showform_emp_admin");
-                }
+                //     setcookie('errorMsg', $errorMsg, time() + 2);
+                //     header("Location: index.php?controller=authenticate&action=showform_emp_admin");
+                // }
             } else {
 
                 $userData = $this->model->empAuthenticate($username, $password);
@@ -96,6 +103,8 @@ class AuthenticationController
                         'role_id' => $userData['msg']['role_id'],
                         'empImage' => $userData['msg']['employee_image'],
                         'emp_logged_in' => true
+                   
+                   
                     ];
                     session_regenerate_id(true); // Destroys old session
 
@@ -109,11 +118,18 @@ class AuthenticationController
 
                     $errorMsg = "Invalid employee credentials";
                     setcookie('errorMsg', $errorMsg, time() + 2);
-                    header("Location: index.php?controller=authentication&action=showform_emp_admin");
+                    header("Location: index.php?controller=authenticate&action=showform_emp_admin");
                 }
             }
         }
+    // }
     }
+
+
+
+
+
+
 
     // logout session
     public function logout($reqdata = 'null')

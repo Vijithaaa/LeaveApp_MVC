@@ -8,7 +8,7 @@ include './App/Includes/helperfunction.php';
 require_once './App/Controller/mainController.php';
 
 
-$controller = $_GET['controller'] ?? 'authentication';
+$controller = $_GET['controller'] ?? 'authenticate';
 $action = $_GET['action'] ?? 'homepage';
 
 

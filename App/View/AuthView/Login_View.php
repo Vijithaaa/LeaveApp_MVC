@@ -10,36 +10,34 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/login.css">
 
-    <title><?= $data['page_title'] ?></title>
+    <title> Login</title>
 </head>
 
 <body>
     <img src="assets/images/common/illu-2.jpeg" alt="background">
     <div class="page-wrapper">
         <div class="loginpage-container">
-            <h2 class="login-title"><?= $data['page_title'] ?></h2>
+            <h2 class="login-title"></h2>
             <div class="loginform">
                 <?= displayAlertMessages() ?>
-                <form method="post" action="index.php?controller=Authentication&action=submitform_emp_admin&type=<?php echo $data["login_type"]; ?>">
+                <form method="post" action="index.php?controller=Authenticate&action=submitform_emp_admin">
                     <div class="form-group">
                         <label>Username:</label>
                         <input type="text" name="username" required>
                     </div>
-
                     <div class="form-group-pass">
-                        <label><?= $data['login_type'] === 'admin' ? 'Password' : 'Employee ID' ?>:</label>
+                        <label>Password</label>
                         <input type="password" name="password" required>
                     </div>
 
                     <div class="form-group button-container">
-                        <a href="index.php?controller=authentication&action=homepage" class="my-custom-button" style="text-decoration:none;">Back</a>
-                        
+                        <!-- back -->
+                        <a href="index.php?controller=Authenticate
+                        &action=homepage" class="my-custom-button" style="text-decoration:none;">Back</a>
+                       <!-- login -->
                         <button type="submit" class="my-custom-button" name="login">Login</button>
                     </div>
                 </form>
-
-
-
             </div>
         </div>
     </div>

@@ -36,7 +36,7 @@
                         <a class="nav-link" href="index.php?controller=admin&action=form"><i class="bi bi-person-badge-fill"></i> Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="index.php?controller=Authentication&action=homepage"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                        <a class="nav-link text-danger" href="index.php?controller=Authenticate&action=homepage"><i class="bi bi-box-arrow-right"></i> Logout</a>
                     </li>
                 </ul>
             </div>

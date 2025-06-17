@@ -28,13 +28,18 @@
             <div class="d-flex">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=employee">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        <!-- <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=employee"> -->
+                            <!-- <i class="bi bi-box-arrow-in-right"></i> Login -->
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=admin">
-                            <i class="bi bi-person-circle"></i> Admin
+                        <!-- <a class="nav-link" href="index.php?controller=Authentication&amp;action=showform_emp_admin&amp;type=admin"> -->
+                            <!-- <i class="bi bi-person-circle"></i> Admin -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?controller=Authenticate&amp;action=showform_emp_admin">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                 </ul>
@@ -137,12 +142,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
-
-<footer class="app-footer">
-  <div class="footer-content">
-    <p>&copy; <?= date("Y")?> Employee Leave tracking Management. All rights reserved.</p>
-  </div>
-</footer>
-
+    
 </html>
