@@ -16,6 +16,7 @@ include './App/View/CommonView/navbar.php';
 
 
 
+
 </head>
 
 <body>
@@ -24,7 +25,7 @@ include './App/View/CommonView/navbar.php';
     <div class="container-image">
         <img src="assets/images/common/form-3.jpg" alt="bg">
 
-        
+
         <div class="leaveform">
             <?= displayAlertMessages() ?>
             <form id="formId" action="index.php?controller=employee&action=submitform" method="post">
@@ -49,15 +50,21 @@ include './App/View/CommonView/navbar.php';
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="form-detail">
+                    <label for="leave_description">Reason for leave:</label>
+                    <textarea id="leave_description" name="leave_description" rows="2" cols="1">
+                       <?= $data['leave_description'] ?>
+                    </textarea>
+                </div>
 
                 <div class="form-detail">
-                    <label>Leave Start Date:</label>
-                    <input type="date" name="start_date" value="<?= $data['start_date'] ?? null ?>" required>
+                    <label >Leave Start Date:</label>
+                    <input type="date" name="start_date" id="start_date" value="<?= $data['start_date'] ?? null ?>" required>
                 </div>
 
                 <div class="form-detail">
                     <label>Leave End Date:</label>
-                    <input type="date" name="end_date" value="<?= $data['end_date'] ?? null ?>" required>
+                    <input type="date" name="end_date" id="end_date" value="<?= $data['end_date'] ?? null ?>" required>
                 </div>
 
                 <div class="form-group button-container">
@@ -70,6 +77,9 @@ include './App/View/CommonView/navbar.php';
             </form>
         </div>
     </div>
+
 </body>
+    <script src="assets/javascript/datepicker.js"></script>
+
 
 </html>

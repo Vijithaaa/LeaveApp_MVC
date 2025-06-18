@@ -32,8 +32,7 @@
 
                     <div class="form-group button-container">
                         <!-- back -->
-                        <a href="index.php?controller=Authenticate
-                        &action=homepage" class="my-custom-button" style="text-decoration:none;">Back</a>
+                        <a href="index.php?controller=Authenticate&action=homepage" class="my-custom-button" style="text-decoration:none;">Back</a>
                        <!-- login -->
                         <button type="submit" class="my-custom-button" name="login">Login</button>
                     </div>

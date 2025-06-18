@@ -7,9 +7,9 @@
 }
 
 .leave-panel {
-    background-color: #e9f3f9;
+    background-color: #f4f4f5;
     border-left: 5px solid #011d48;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 2px grey;
     padding: 20px;
     width: 250px;
     border-radius: 10px;
@@ -17,7 +17,7 @@
 }
 
 .leave-panel:hover {
-    transform: translateY(-5px);
+    transform: translateY(1px);
 }
 
 .leave-name {

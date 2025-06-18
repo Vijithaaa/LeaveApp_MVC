@@ -16,7 +16,7 @@ class AdminController
 
 
 
-// showing form for employee registration
+ // showing form for employee registration
     public function form($reqdata = 'null')
     {
 
@@ -35,7 +35,6 @@ class AdminController
 // inserting a employee data's to database
     public function submitform($reqdata = 'null')
     {
-
 
         $uploadFolder = "assets/images/employees/";
         $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']; //web safe image formats
@@ -176,12 +175,15 @@ class AdminController
                     'status' => $app['status'],
                     'reqested_date' => $app['reqested_date'],
                     'response_date' => $app['response_date'],
+                    'leave_description'=>$app['leave_description'],
                     'days' => calculateLeaveDays($app['leave_start_date'], $app['leave_end_date']) // Calculate days here
 
                 ];
             }
         }
-        $arr =  ['data' => $application, 'path' => 'View/AdminView/approveView.php'];
+        // $arr =  ['data' => $application, 'path' => 'View/AdminView/approveView.php'];
+        $arr =  ['data' => $application, 'path' => 'View/AdminView/Approve_View.php'];
+
         return $arr;
     }
 

@@ -96,3 +96,28 @@
   border-collapse: collapse;
   text-align: center; 
 }
+
+
+.filter-options{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.filter-dropdown select {
+  
+  padding: 4px 8px;  /* Smaller padding */
+  border: 1px solid #ddd;
+  border-radius: 3px;  /* Smaller radius */
+  font-size: 14px;  /* Smaller font */
+  width: auto;  /* Let it size to content */
+  display: inline-block; /* Don't take full width */
+  max-width: 120px; /* Maximum width */
+  cursor: pointer;
+}
+
+/* Make the dropdown options small too */
+.filter-dropdown option {
+  font-size: 14px;
+  padding: 2px 5px;
+}

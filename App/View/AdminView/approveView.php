@@ -76,8 +76,6 @@
 
                                 <td><?= formatDateTime($app['reqested_date']) ?></td>
 
-                               
-
                                 <td class="text-center">
                                     <?php if ($app['status'] == 'pending'): ?>
 

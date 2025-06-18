@@ -15,10 +15,7 @@ include './App/View/CommonView/navbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/leave-history.css">
@@ -30,6 +27,25 @@ include './App/View/CommonView/navbar.php';
 
 <body>
     <div class="blank"></div>
+
+<div class="filter-dropdown">
+  <select class="form-select" onchange="window.location.href=this.value">
+    <option>Status</option>
+    <option value="index.php?controller=employee&action=leavehistory">All</option>
+    <option value="index.php?controller=employee&action=leavehistory&filter=pending">Pending</option>
+    <option value="index.php?controller=employee&action=leavehistory&filter=approved">Approved</option>
+    <option value="index.php?controller=employee&action=leavehistory&filter=rejected">Rejected</option>
+  </select>
+</div>
+
+    <!-- <div  class="filter-options">
+    <a class="btn btn-primary" href="index.php?controller=employee&action=leavehistory">All</a>
+    <a class="btn btn-primary" href="index.php?controller=employee&action=leavehistory&filter=pending">Pending</a>
+    <a class="btn btn-primary" href="index.php?controller=employee&action=leavehistory&filter=approved">Approved</a>
+    <a class="btn btn-primary" href="index.php?controller=employee&action=leavehistory&filter=rejected">Rejected</a>
+</div> -->
+
+
     <div class="container leave-history-wrapper py-4">
 
         <div class="card leave-history-card mx-auto my-4">
@@ -37,7 +53,6 @@ include './App/View/CommonView/navbar.php';
             <div class="card-body p-0">
 
         <?= displayAlertMessages() ?>
-
 
                 <?php if (!empty($data)): ?>
                     <table class="table leave-history-table mb-0">

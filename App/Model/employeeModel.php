@@ -99,7 +99,7 @@ class employeeModel extends Database
 
 
 
-    public function UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id,$reqested_date)
+    public function UpdateLeaveData($empId, $leave_type_id, $start_date, $end_date, $application_id,$reqested_date,$leave_description)
     {
 
         $querydata =  [
@@ -108,7 +108,8 @@ class employeeModel extends Database
                 'leave_type_id'=>$leave_type_id,
                 'leave_start_date'=>$start_date,
                 'leave_end_date'=>$end_date,
-                'reqested_date'=>$reqested_date
+                'reqested_date'=>$reqested_date,
+                'leave_description'=>$leave_description
 
             ],
             'condition'=>[
@@ -125,7 +126,7 @@ class employeeModel extends Database
 
 
 
-    public function InsertLeaveData($empId, $leave_type_id, $start_date, $end_date)
+    public function InsertLeaveData($empId, $leave_type_id, $start_date, $end_date,$leave_description)
     {
          $querydata = [
             'table_name'=>"leave_application",
@@ -133,7 +134,8 @@ class employeeModel extends Database
                 'employee_id'=>$empId,
                 'leave_type_id'=>$leave_type_id,
                 'leave_start_date'=>$start_date,
-                'leave_end_date'=>$end_date
+                'leave_end_date'=>$end_date,
+                'leave_description'=>$leave_description
             ]
         ];
 
@@ -146,23 +148,85 @@ class employeeModel extends Database
     //history
 
 
-       public function SelectApplication($empId,$orderby)
+       public function SelectApplication($empId,$orderby, $conditions)
     {
 
         $querydata = [
             'column_name' => "*",
             'table_name' => "leave_application",
             'orderby'=>$orderby,
-            'condition' => [
-                'employee_id'=>$empId
-
-            ]
+             'condition' => $conditions
         ];
         $data =  $this->select_queryfun($querydata,$multiple=true);
         return $data;
 
     
     }
+
+    
+
+    //        public function SelectPendingApplication($empId,$orderby,$pending_status)
+    // {
+
+    //     $querydata = [
+    //         'column_name' => "*",
+    //         'table_name' => "leave_application",
+    //         'orderby'=>$orderby,
+    //         'condition' => [
+    //             'employee_id'=>$empId,
+    //             'status'=>$pending_status
+
+    //         ]
+    //     ];
+    //     $data =  $this->select_queryfun($querydata,$multiple=true);
+    //     return $data;
+
+    
+    // }
+
+    //        public function SelectApprovedApplication($empId,$orderby,$pending_status)
+    // {
+
+    //     $querydata = [
+    //         'column_name' => "*",
+    //         'table_name' => "leave_application",
+    //         'orderby'=>$orderby,
+    //         'condition' => [
+    //             'employee_id'=>$empId,
+    //             'status'=>$pending_status
+
+    //         ]
+    //     ];
+    //     $data =  $this->select_queryfun($querydata,$multiple=true);
+    //     return $data;
+
+    
+    // }
+
+    //            public function SelectRejectedApplication($empId,$orderby,$pending_status)
+    // {
+
+    //     $querydata = [
+    //         'column_name' => "*",
+    //         'table_name' => "leave_application",
+    //         'orderby'=>$orderby,
+    //         'condition' => [
+    //             'employee_id'=>$empId,
+    //             'status'=>$pending_status
+
+    //         ]
+    //     ];
+    //     $data =  $this->select_queryfun($querydata,$multiple=true);
+    //     return $data;
+
+    
+    // }
+
+
+
+
+
+
 
 
         public function deleteApplication($empId, $application_id,$status)
