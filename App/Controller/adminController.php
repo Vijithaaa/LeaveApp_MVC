@@ -16,7 +16,7 @@ class AdminController
 
 
 
- // showing form for employee registration
+    // showing form for employee registration
     public function form($reqdata = 'null')
     {
 
@@ -32,7 +32,7 @@ class AdminController
     }
 
 
-// inserting a employee data's to database
+    // inserting a employee data's to database
     public function submitform($reqdata = 'null')
     {
 
@@ -43,12 +43,13 @@ class AdminController
 
         if (isset($reqdata['register_employee_details'])) {
 
-            $empName = $empEmail = $empGender = $empDateOfJoin = $empRoleId = $photoPath = '';
+            $empName = $empEmail = $empGender = $empDateOfJoin = $empRoleId = $photoPath = $employee_pass = '';
             $empName = $reqdata['employee_name'];
             $empEmail = $reqdata['emp_email_id'];
             $empGender = $reqdata['gender'];
             $empDateOfJoin = $reqdata['date_of_joining'];
             $empRoleId = $reqdata['role_id'];
+            $employee_pass = $reqdata['employee_pass'];
 
             if (!empty($_FILES['employee_photo']['tmp_name'])) {
 
@@ -86,7 +87,7 @@ class AdminController
 
 
 
-            $insert = $this->model->InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath);
+            $insert = $this->model->InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath,$employee_pass);
 
             if (isset($insert['status']) && $insert['status'] === 'success') {
                 $successMsg = "Data inserted successfully";
@@ -101,15 +102,15 @@ class AdminController
                     $file = fopen($csvFilePath, 'w');
                     fputcsv($file, ['employee_id', 'employee_name', 'emp_email_id', 'gender', 'date_of_joining', 'status', 'role_id', 'employee_image']);
                 } else {
-                    $file = fopen($csvFilePath, 'a'); 
+                    $file = fopen($csvFilePath, 'a');
                 }
 
                 if ($file) {
 
-                    $empId = $insert['msg']['last_id']; 
-                    $status = 'active'; 
+                    $empId = $insert['msg']['last_id'];
+                    $status = 'active';
 
-                    fputcsv($file, [$empId, $empName, $empEmail, $empGender, $empDateOfJoin, $status, $empRoleId, $photoPath]);
+                    fputcsv($file, [$empId, $empName, $empEmail, $empGender, $empDateOfJoin, $status, $empRoleId, $photoPath,$employee_pass]);
 
                     fclose($file);
                 }
@@ -134,15 +135,15 @@ class AdminController
 
 
     //=====================================================================================================================
-    
+
     //approve -> list the pending leaves of employee and response for their request
     public function approve($reqdata = 'null')
     {
 
         $application = [];
         $status = 'pending';
-        $orderby = "reqested_date desc"; 
-        $SelectAllApplication = $this->model->SelectAllApplication($status,$orderby);
+        $orderby = "reqested_date desc";
+        $SelectAllApplication = $this->model->SelectAllApplication($status, $orderby);
         if ($SelectAllApplication && $SelectAllApplication['status'] === 'success') {
             $applications = $SelectAllApplication['msg'];
 
@@ -175,7 +176,7 @@ class AdminController
                     'status' => $app['status'],
                     'reqested_date' => $app['reqested_date'],
                     'response_date' => $app['response_date'],
-                    'leave_description'=>$app['leave_description'],
+                    'leave_description' => $app['leave_description'],
                     'days' => calculateLeaveDays($app['leave_start_date'], $app['leave_end_date']) // Calculate days here
 
                 ];
@@ -187,27 +188,27 @@ class AdminController
         return $arr;
     }
 
-// 
-    public function status($reqdata){
+    // 
+    public function status($reqdata)
+    {
 
-           // getting the application_id from  form in same page
+        // getting the application_id from  form in same page
         if (isset($reqdata['actions']) && isset($reqdata['application_id'])) {
             $application_id = ($reqdata['application_id']);  //hidden input
             $status = ($reqdata['actions']); //hidden input
 
             $response_date = date('Y-m-d H:i:s');
 
-            $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id,$response_date);
+            $updateLeaveApp = $this->model->updateLeaveApp($status, $application_id, $response_date);
 
 
             if (is_array($updateLeaveApp)) {
                 $successMsg = "status updated";
                 setcookie('successMsg', $successMsg, time() + 2);
                 header("Location: index.php?controller=admin&action=approve");
-
             }
 
-              //select leave application if status == 'approved'  for updating the leave_tracking page to show no.of leave count for  particular employeee
+            //select leave application if status == 'approved'  for updating the leave_tracking page to show no.of leave count for  particular employeee
             if ($status == 'approved') {
 
                 $Selecting_appIds = $this->model->Selecting_appIds($application_id);
@@ -225,8 +226,5 @@ class AdminController
 
         } // if post data
         return $this->approve();
-
     }
-
-
 }

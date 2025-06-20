@@ -20,7 +20,7 @@ class AdminModel extends Database
         $data =  $this->select_queryfun($querydata, $multiple = true);
         return $data;
     }
-    public function InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath)
+    public function InsertEmployeeData($empName, $empEmail, $empGender, $empDateOfJoin, $empRoleId, $photoPath,$employee_pass)
     {
 
         $querydata = [
@@ -31,7 +31,8 @@ class AdminModel extends Database
                 'gender'=>$empGender,
                 'date_of_joining'=>$empDateOfJoin,
                 'role_id'=>$empRoleId,
-                'employee_image'=>$photoPath
+                'employee_image'=>$photoPath,
+                'employee_pass'=>$employee_pass
             ]
             
         ];

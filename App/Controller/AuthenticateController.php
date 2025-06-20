@@ -21,25 +21,17 @@ class AuthenticateController
         return $arr;
     }
 
-    // Determine login_type (admin or employee)
+
+    
     public function showform_emp_admin($reqdata = 'null')  //form
     {
 
-
-        // $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
-
-        // $page_title = ucfirst($login_type) . " Login";
-
         $arr = [
-            // 'data' => ['login_type' => $login_type, 'page_title' => $page_title],
             'path' => 'View/AuthView/Login_View.php'
 
         ];
         return $arr;
     }
-
-
-
 
 
     // submit form either employee or admin based on type
@@ -52,16 +44,12 @@ class AuthenticateController
         }
 
 
-        // $login_type = isset($reqdata['type']) ? $reqdata['type'] : 'employee';
-
-
         if (isset($reqdata['login'])) {
 
             $username = $reqdata['username'];
             $password = $reqdata['password'];
 
 
-            // if ($login_type == "admin") {
 
                 $userData = $this->model->adminAuth($username, $password);
 
@@ -80,21 +68,13 @@ class AuthenticateController
                     $obj = new AdminController();
                     return $obj->approve();
 
-
-
-                // } else {
-                //     $errorMsg = "Invalid admin credentials";
-
-                //     setcookie('errorMsg', $errorMsg, time() + 2);
-                //     header("Location: index.php?controller=authenticate&action=showform_emp_admin");
-                // }
             } else {
 
                 $userData = $this->model->empAuthenticate($username, $password);
 
                 if (
                     $userData &&  $userData['msg'] != false && $userData['msg']['employee_name'] === $username
-                    && $userData['msg']['employee_id'] == $password
+                    && $userData['msg']['employee_pass'] == $password
                 ) {
                     
                     $_SESSION['EMP'] = [
@@ -122,7 +102,7 @@ class AuthenticateController
                 }
             }
         }
-    // }
+
     }
 
 

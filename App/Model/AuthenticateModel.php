@@ -36,7 +36,7 @@ class AuthenticationModel extends Database
             'table_name' => "employee_detail",
             'condition' => [
                 'employee_name' => $username,
-                'employee_id' => $password
+                'employee_pass' => $password
             ]
         ];
 

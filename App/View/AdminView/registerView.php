@@ -64,6 +64,15 @@
                             <?php endif; ?>
                         </select>
                     </div>
+
+                      <div class="form-group">
+                        <label>Employee Pass :</label>
+                        <input type="text" name="employee_pass" required>
+                    </div>
+
+
+
+
                     <div class="form-group">
                         <label for="emp_image">Employee Image : </label>
                         <input type="file" id="emp_image" name="employee_photo" accept="image/png, image/jpeg ,image/gif" required>
